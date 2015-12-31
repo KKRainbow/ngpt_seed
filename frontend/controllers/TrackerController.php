@@ -12,12 +12,10 @@ use frontend\models\Peer;
 use frontend\models\Seed;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use frontend\models\QueryPeersForm;
-use frontend\models\User;
 
-class AnnounceController extends Controller
+class TrackerController extends Controller
 {
     public function behaviors()
     {
@@ -28,7 +26,7 @@ class AnnounceController extends Controller
         ];
         return $behaviors;
     }
-    public function actionQuery()
+    public function actionAnnounce()
     {
         Yii::$app->response->headers->add("Content-Type", "text/plain");
         Yii::trace(print_r(Yii::$app->request->get(), true));
