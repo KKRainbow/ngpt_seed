@@ -19,7 +19,8 @@ use Yii;
  * @property string $last_active_time
  * @property boolean $is_valid
  * @property string $pub_time
- * @property integer $traffic
+ * @property integer $traffic_up
+ * @property integer $traffic_down
  * @property string $coefs_stack
  * @property integer $live_time
  * @property string $create_time
@@ -45,7 +46,7 @@ class Seed extends \common\models\ActiveRecordTS
     {
         return [
             [['info_hash'], 'required'],
-            [['torrent_size', 'file_count', 'seeder_count', 'leecher_count', 'completed_count', 'traffic', 'live_time'], 'integer'],
+            [['torrent_size', 'file_count', 'seeder_count', 'leecher_count', 'completed_count', 'traffic_up', 'traffic_down', 'live_time'], 'integer'],
             [['last_active_time', 'pub_time', 'create_time', 'update_time'], 'safe'],
             [['is_valid'], 'boolean'],
             [['coefs_stack'], 'string'],
@@ -74,7 +75,8 @@ class Seed extends \common\models\ActiveRecordTS
             'last_active_time' => 'Last Active Time',
             'is_valid' => 'Is Valid',
             'pub_time' => 'Pub Time',
-            'traffic' => 'Traffic',
+            'traffic_up' => 'Traffic Up',
+            'traffic_down' => 'Traffic Down',
             'coefs_stack' => 'Coefs Stack',
             'live_time' => 'Live Time',
             'create_time' => 'Create Time',

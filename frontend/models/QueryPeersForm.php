@@ -28,6 +28,7 @@ class QueryPeersForm extends Model
     public $peer_id; //记住这里的peer_id对应于peer表里的client_tag
     public $numwant;
     public $compact;
+    public $no_peer_id = false;
 
     public $ip;
     public $port;
@@ -67,19 +68,19 @@ class QueryPeersForm extends Model
         //仍然没找到，新建条目
         if (empty($peer)) {
             $peer = new Peer();
-            $peer->ipv4_addr = $this->ipv4;
-            $peer->ipv4_port = $this->ipv4port;
-
-            $peer->ipv6_addr = $this->ipv6;
-            $peer->ipv6_port = $this->ipv6port;
-
-            $peer->client_tag = $this->peer_id;
             $peer->seed_id = $this->seed->seed_id;
             $peer->user_id = Yii::$app->user->identity->getId();
-
-            $peer->status = $this->left == 0 ? 'Seeder' : 'Leecher';
             //这里不能保存，否则会导致触发器误判
         }
+        $peer->ipv4_addr = $this->ipv4;
+        $peer->ipv4_port = $this->ipv4port;
+
+        $peer->ipv6_addr = $this->ipv6;
+        $peer->ipv6_port = $this->ipv6port;
+
+        $peer->client_tag = $this->peer_id;
+        $peer->status = intval($this->left) == 0 ? 'Seeder' : 'Leecher';
+
         $this->_peer = $peer;
         return $peer;
     }
@@ -150,14 +151,15 @@ class QueryPeersForm extends Model
     public function rules()
     {
         return [
-            [['passkey', 'info_hash', 'event', 'ip', 'port', 'left',
+            [['info_hash', 'peer_id', 'port', 'left', 'downloaded', 'uploaded'],'required'],
+            [['passkey', 'info_hash', 'event', 'ip', 'port', 'left', 'no_peer_id',
                 'uploaded', 'downloaded', 'ipv6', 'numwant', 'compact'],
                 'trim'],
             [['passkey', 'info_hash', 'ip', 'ipv6'], 'default'],
             ['event', 'default', 'value' => 'regular'],
             [['port', 'left', 'uploaded', 'downloaded','compact','numwant']
                 , 'default', 'value' => 0],
-            ['compact', 'filter', 'filter' => function ($val) {
+            [['compact', 'no_peer_id'], 'filter', 'filter' => function ($val) {
                 return (bool)$val;
             }],
             [['port', 'left', 'uploaded', 'downloaded', 'numwant']

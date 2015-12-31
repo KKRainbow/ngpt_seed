@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS {{%seed}} (
     last_active_time 	timestamp NOT NULL DEFAULT now(),
     is_valid 			boolean NOT NULL DEFAULT true,
     pub_time 			timestamp NOT NULL DEFAULT now(),
-    traffic				bigint NOT NULL DEFAULT 0,
+    traffic_up			bigint NOT NULL DEFAULT 0,
+    traffic_down		bigint NOT NULL DEFAULT 0,
     coefs_stack         int[][] NOT NULL DEFAULT '{{100,100,0}}',
     live_time 			int NOT NULL DEFAULT 0,
     create_time			timestamp NOT NULL DEFAULT now(),
@@ -125,15 +126,14 @@ CREATE OR REPLACE FUNCTION
   after_peer_statistic_change_trigger()
   RETURNS TRIGGER AS $$
 DECLARE
-  up_diff integer := 0;
-  down_diff integer := 0;
-  up_res integer := 0;
-  down_res integer := 0;
+  up_diff BIGINT := 0;
+  down_diff BIGINT := 0;
+  up_res BIGINT := 0;
+  down_res BIGINT := 0;
   up_coef integer := 1;
   down_coef integer := 1;
-  has_history INTEGER := 0;
-  stat_up_diff INTEGER := 0;
-  stat_down_diff INTEGER := 0;
+  stat_up_diff BIGINT := 0;
+  stat_down_diff BIGINT := 0;
 BEGIN
   SELECT coefs_stack[1][1],coefs_stack[1][2] INTO
     up_coef,down_coef FROM seed WHERE seed_id=NEW.seed_id;
@@ -169,7 +169,8 @@ BEGIN
   WHERE
     user_id=NEW.user_id;
   UPDATE "seed" SET
-    traffic=traffic+down_diff
+    traffic_up=traffic_up+up_diff,
+    traffic_down=traffic_down+down_diff
   WHERE
     seed_id=NEW.seed_id;
   RETURN NULL;
