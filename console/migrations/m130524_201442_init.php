@@ -47,6 +47,8 @@ SQL;
         $sql_create_table_seed[] = <<<SQL
 CREATE TABLE IF NOT EXISTS {{%seed}} (
     seed_id 			SERIAL NOT NULL PRIMARY KEY,
+    type_id             int NOT NULL DEFAULT -1,
+    sub_type_id         int NOT NULL DEFAULT -1,
     info_hash 			char(40) NOT NULL,
     source_str          char(50) NOT NULL DEFAULT '',
     torrent_name 		varchar(250) NOT NULL DEFAULT '未命名',

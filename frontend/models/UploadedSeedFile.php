@@ -22,8 +22,9 @@ class UploadedSeedFile extends Model
     public $torrentFile;
 
     public $pub_form;
-    public $type_id;
     public $meta_info_id;
+    public $type_id = -1;
+    public $sub_type_id = -1;
 
     private $hasValidated = false;
     /**
@@ -46,7 +47,8 @@ class UploadedSeedFile extends Model
         return [
             [['torrentFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'torrent'],
             [['pub_form', 'meta_info_id'], 'required'],
-            [['pub_form', 'type_id', 'meta_info_id'], function ($attr, $params) {
+            [['type_id', 'sub_type_id'], 'safe'],
+            ['pub_form', function ($attr, $params) {
                 if ($this->hasValidated) {
                     return;
                 }
@@ -56,7 +58,7 @@ class UploadedSeedFile extends Model
                 $this->pub_form = json_decode($this->pub_form, true);
                 Yii::info($json);
                 Yii::info($this->pub_form);
-                $proc = new MetaInfoProcessor($json, $this->pub_form, $this->type_id);
+                $proc = new MetaInfoProcessor($json, $this->pub_form, $this->sub_type_id);
                 $res = $proc->checkFields();
                 Yii::info($res, static::classname());
                 if (!empty($res)) {
@@ -80,6 +82,7 @@ class UploadedSeedFile extends Model
 
     /**
      * @param string $retval exists|invalid|succeed|failed
+     * @param int $type_id 分类号，比如discuz传来的fid可以放到这
      * @param bool $replace
      * @return false|Seed
      * @throws \Exception
@@ -134,6 +137,8 @@ class UploadedSeedFile extends Model
             $seed->detail_info = $this->proc_obj->getDetail();
             $seed->full_name = $this->proc_obj->generateSubject();
             $seed->is_valid = true;
+            $seed->type_id = $this->type_id;
+            $seed->sub_type_id = $this->sub_type_id;
             $seed->save();
             $retval = 'succeed';
             return $seed;

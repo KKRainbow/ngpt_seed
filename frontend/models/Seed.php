@@ -8,6 +8,8 @@ use Yii;
  * This is the model class for table "{{%seed}}".
  *
  * @property integer $seed_id
+ * @property integer $type_id
+ * @property integer $sub_type_id
  * @property string $info_hash
  * @property string $source_str
  * @property string $torrent_name
@@ -52,8 +54,13 @@ class Seed extends \common\models\ActiveRecordTS
     {
         return [
             [['info_hash'], 'required'],
-            [['file_size', 'file_count', 'seeder_count', 'leecher_count', 'completed_count',
-                'traffic_up', 'traffic_down', 'live_time', 'publisher_user_id'], 'integer'],
+            [
+                ['file_size', 'file_count', 'seeder_count',
+                'leecher_count', 'completed_count',
+                'traffic_up', 'traffic_down', 'live_time',
+                'publisher_user_id', 'type_id', 'sub_type_id'],
+                'integer'
+            ],
             [['last_active_time', 'pub_time', 'create_time', 'update_time'], 'safe'],
             [['is_valid'], 'boolean'],
             [['coefs_stack', 'detail_info', 'full_name'], 'string'],
@@ -71,6 +78,8 @@ class Seed extends \common\models\ActiveRecordTS
     {
         return [
             'seed_id' => 'Seed ID',
+            'type_id' => 'Type ID',
+            'sub_type_id' => 'Sub Type ID',
             'info_hash' => 'Info Hash',
             'source_str' => 'Source Str',
             'torrent_name' => 'Torrent Name',

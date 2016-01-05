@@ -54,17 +54,12 @@ class SeedController extends Controller
             $retval = null;
             $res = $seedModel->upload($retval, $replace);
             Yii::info($retval);
-            Yii::info($res);
             $response['result'] = $retval;
             if ($retval == 'succeed') {
-                $response['info_hash'] = $res->info_hash;
-                $response['seed_id'] = $res->seed_id;
-                $response['file_count'] = $res->file_count;
-                $response['file_size'] = $res->file_size;
-                $response['torrent_name'] = $res->torrent_name;
-                $response['full_name'] = $res->full_name;
+                $response['extra'] = $res->attributes;
+            } else {
+                $response['extra'] = $seedModel->errors;
             }
-            $response['extra'] = $seedModel->errors;
         } else {
             $response['result'] = 'failed';
             $response['extra'] = 'method not post';
