@@ -1,0 +1,177 @@
+{
+  "none": {
+    "name_prefix": "record",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "厂商",
+        "type": "select",
+        "user_defined": true,
+        "optional": false,
+        "name": "firm",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "ATV": "ATV",
+              "BBC": "BBC",
+              "BTV": "BTV",
+              "CCTV": "CCTV",
+              "ITV": "ITV",
+              "NHK": "NHK",
+              "Syfy": "Syfy",
+              "TVB": "TVB",
+              "凤凰卫视": "凤凰卫视",
+              "国家地理": "国家地理",
+              "历史频道": "历史频道",
+              "探索频道": "探索频道"
+            }
+          }
+        ]
+      },
+      {
+        "title": "画面尺寸",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "size",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "480p": "480p",
+              "576p": "576p",
+              "720p": "720p",
+              "1080p": "1080p",
+              "1080i": "1080i",
+              "4K": "4K"
+            }
+          }
+        ]
+      },
+      {
+        "title": "音轨语言",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "language",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "国语": "国语",
+              "英文": "英文",
+              "粤语": "粤语",
+              "德语": "德语",
+              "法语": "法语",
+              "日语": "日语",
+              "韩语": "韩语",
+              "多种": "多种"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "subtitle",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "英文字幕": "英文字幕",
+              "中文字幕": "中文字幕",
+              "中英字幕": "中英字幕",
+              "暂无字幕": "暂无字幕"
+            }
+          }
+        ]
+      },
+      {
+        "title": "封装格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "TS": "TS",
+              "MKV": "MKV",
+              "MP4": "MP4",
+              "AVI": "AVI",
+              "FLV": "FLV",
+              "ISO": "ISO",
+              "M2TS": "M2TS"
+            }
+          }
+        ]
+      },
+      {
+        "title": "媒介",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "medium",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "蓝光": "蓝光",
+              "录制": "录制",
+              "WEB-DL": "WEB-DL",
+              "DVD": "DVD",
+              "VCD": "VCD",
+              "其他": "其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "年份",
+        "type": "text",
+        "optional": false,
+        "name": "date",
+        "width": "200px",
+        "comment": "请填写四位数年份,如:2015",
+        "regex": "\\d{4}"
+      }
+    ],
+    "subject": [
+      "date",
+      "firm",
+      "cname",
+      "ename",
+      "size",
+      "language",
+      "subtitle",
+      "format",
+      "medium"
+    ]
+  }
+}

@@ -1,0 +1,497 @@
+{
+  "0": {
+    "name_prefix": "music",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "艺术家",
+        "type": "text",
+        "optional": false,
+        "name": "actor",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "资源名称",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "音乐曲风",
+        "type": "select",
+        "user_defined": true,
+        "optional": false,
+        "name": "genre",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "流行":"流行",
+              "古典":"古典",
+              "民族":"民族",
+              "摇滚":"摇滚",
+              "原声":"原声",
+              "乡村":"乡村",
+              "新世纪":"新世纪",
+              "蓝调":"蓝调",
+              "爵士":"爵士",
+              "金属":"金属",
+              "电子":"电子",
+              "说唱":"说唱",
+              "独立":"独立"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源格式",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "WAV":"WAV",
+              "APE":"APE",
+              "FLAC":"FLAC",
+              "MP3":"MP3",
+              "AAC":"AAC",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源质量",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "quality",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "无损":"无损",
+              "192Kbps":"192Kbps",
+              "256Kbps":"256Kbps",
+              "320Kbps":"320Kbps"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源年份",
+        "type": "calendar",
+        "optional": false,
+        "user_defined": true,
+        "name": "year"
+      },
+      {
+        "title": "发行地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "无":"无",
+              "大陆":"大陆",
+              "港台":"港台",
+              "欧美":"欧美",
+              "日韩":"日韩"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行公司",
+        "type": "text",
+        "optional": true,
+        "name": "ename",
+        "width": "200px",
+        "regex": "",
+        "comment": ""
+      }
+    ],
+    "subject": [
+      "region",
+      "year",
+      "actor",
+      "cname",
+      "genre",
+      "quality",
+      "format"
+    ]
+  },
+
+  "1": {
+    "name_prefix": "album",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "艺术家",
+        "type": "text",
+        "optional": false,
+        "name": "actor",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "资源名称",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "音乐曲风",
+        "type": "select",
+        "user_defined": true,
+        "optional": false,
+        "name": "genre",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "流行":"流行",
+              "古典":"古典",
+              "民族":"民族",
+              "摇滚":"摇滚",
+              "原声":"原声",
+              "乡村":"乡村",
+              "新世纪":"新世纪",
+              "蓝调":"蓝调",
+              "爵士":"爵士",
+              "金属":"金属",
+              "电子":"电子",
+              "说唱":"说唱",
+              "独立":"独立"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源格式",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "WAV":"WAV",
+              "APE":"APE",
+              "FLAC":"FLAC",
+              "MP3":"MP3",
+              "AAC":"AAC",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源质量",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "quality",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "无损":"无损",
+              "192Kbps":"192Kbps",
+              "256Kbps":"256Kbps",
+              "320Kbps":"320Kbps"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源年份",
+        "type": "calendar",
+        "optional": false,
+        "user_defined": true,
+        "name": "year"
+      },
+      {
+        "title": "发行地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "无":"无",
+              "大陆":"大陆",
+              "港台":"港台",
+              "欧美":"欧美",
+              "日韩":"日韩"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行公司",
+        "type": "text",
+        "optional": true,
+        "name": "ename",
+        "width": "200px",
+        "regex": "",
+        "comment": ""
+      }
+    ],
+    "subject": [
+      "region",
+      "year",
+      "actor",
+      "cname",
+      "genre",
+      "quality",
+      "format"
+    ]
+  },
+
+  "2": {
+    "name_prefix": "concert",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "艺术家",
+        "type": "text",
+        "optional": false,
+        "name": "actor",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "资源名称",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "资源格式",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "MP4":"MP4",
+              "MKV":"MKV",
+              "TS":"TS",
+              "ISO":"ISO",
+              "AVI":"AVI",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源质量",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "quality",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "720p":"720p",
+              "1080p":"1080p"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源年份",
+        "type": "calendar",
+        "optional": false,
+        "user_defined": true,
+        "name": "year"
+      },
+      {
+        "title": "发行地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "无":"无",
+              "大陆":"大陆",
+              "港台":"港台",
+              "欧美":"欧美",
+              "日韩":"日韩"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行公司",
+        "type": "text",
+        "optional": true,
+        "name": "ename",
+        "width": "200px",
+        "regex": "",
+        "comment": ""
+      }
+    ],
+    "subject": [
+      "region",
+      "year",
+      "actor",
+      "cname",
+      "quality",
+      "format"
+    ]
+  },
+
+  "3": {
+    "name_prefix": "mv",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "艺术家",
+        "type": "text",
+        "optional": false,
+        "name": "actor",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "资源名称",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "资源格式",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "MP4":"MP4",
+              "MKV":"MKV",
+              "TS":"TS",
+              "ISO":"ISO",
+              "AVI":"AVI",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源质量",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "quality",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "720p":"720p",
+              "1080p":"1080p"
+            }
+          }
+        ]
+      },
+      {
+        "title": "资源年份",
+        "type": "calendar",
+        "optional": false,
+        "user_defined": true,
+        "name": "year"
+      },
+      {
+        "title": "发行地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": true,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "无":"无",
+              "大陆":"大陆",
+              "港台":"港台",
+              "欧美":"欧美",
+              "日韩":"日韩"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行公司",
+        "type": "text",
+        "optional": true,
+        "name": "ename",
+        "width": "200px",
+        "regex": "",
+        "comment": ""
+      }
+    ],
+    "subject": [
+      "region",
+      "year",
+      "actor",
+      "cname",
+      "quality",
+      "format"
+    ]
+  }
+}

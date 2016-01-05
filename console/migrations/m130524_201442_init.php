@@ -13,36 +13,6 @@ class m130524_201442_init extends Migration
         };
 //========================================================================
 
-        $sql_create_table_seed = [];
-        $sql_create_table_seed[] = <<<SQL
-CREATE TABLE IF NOT EXISTS {{%seed}} (
-    seed_id 			SERIAL NOT NULL PRIMARY KEY,
-    info_hash 			char(40) NOT NULL,
-    source_str          char(50) NOT NULL DEFAULT '',
-    torrent_name 		varchar(250) NOT NULL DEFAULT '未命名',
-    torrent_size 		bigint NOT NULL DEFAULT 0,
-    file_count 			int NOT NULL DEFAULT 0,
-    seeder_count 		int NOT NULL DEFAULT 0,
-    leecher_count 		int NOT NULL DEFAULT 0,
-    completed_count 	int NOT NULL DEFAULT 0,
-    last_active_time 	timestamp NOT NULL DEFAULT now(),
-    is_valid 			boolean NOT NULL DEFAULT true,
-    pub_time 			timestamp NOT NULL DEFAULT now(),
-    traffic_up			bigint NOT NULL DEFAULT 0,
-    traffic_down		bigint NOT NULL DEFAULT 0,
-    coefs_stack         int[][] NOT NULL DEFAULT '{{100,100,0}}',
-    live_time 			int NOT NULL DEFAULT 0,
-    create_time			timestamp NOT NULL DEFAULT now(),
-    update_time 		timestamp NOT NULL DEFAULT now()
-);
-SQL;
-        $sql_create_table_seed[] = <<<SQL
-CREATE UNIQUE INDEX idx_info_hash ON {{%seed}}(info_hash);
-SQL;
-        array_map($execute_sql, $sql_create_table_seed);
-
-//========================================================================
-
         $sql_create_table_user = [];
         $sql_create_table_user[] = <<<SQL
 CREATE TYPE user_priv AS ENUM ('Admin','User','Anonymous');
@@ -65,14 +35,51 @@ SQL;
         $sql_create_table_user[] = <<<SQL
 CREATE UNIQUE INDEX idx_discuz_user_id ON {{%user}}(discuz_user_id);
 SQL;
+
+        $sql_create_table_user[] = <<<SQL
+CREATE UNIQUE INDEX idx_passkey ON {{%user}}(passkey);
+SQL;
         array_map($execute_sql, $sql_create_table_user);
+
+//========================================================================
+
+        $sql_create_table_seed = [];
+        $sql_create_table_seed[] = <<<SQL
+CREATE TABLE IF NOT EXISTS {{%seed}} (
+    seed_id 			SERIAL NOT NULL PRIMARY KEY,
+    info_hash 			char(40) NOT NULL,
+    source_str          char(50) NOT NULL DEFAULT '',
+    torrent_name 		varchar(250) NOT NULL DEFAULT '未命名',
+    full_name 		    varchar(250) NOT NULL DEFAULT '未命名',
+    file_size    		bigint NOT NULL DEFAULT 0,
+    file_count 			int NOT NULL DEFAULT 0,
+    seeder_count 		int NOT NULL DEFAULT 0,
+    leecher_count 		int NOT NULL DEFAULT 0,
+    completed_count 	int NOT NULL DEFAULT 0,
+    last_active_time 	timestamp NOT NULL DEFAULT now(),
+    is_valid 			boolean NOT NULL DEFAULT true,
+    pub_time 			timestamp NOT NULL DEFAULT now(),
+    traffic_up			bigint NOT NULL DEFAULT 0,
+    traffic_down		bigint NOT NULL DEFAULT 0,
+    coefs_stack         int[][] NOT NULL DEFAULT '{{100,100,0}}',
+    live_time 			int NOT NULL DEFAULT 0,
+    publisher_user_id   int NOT NULL REFERENCES {{%user}}(user_id),
+    detail_info         json,
+    create_time			timestamp NOT NULL DEFAULT now(),
+    update_time 		timestamp NOT NULL DEFAULT now()
+);
+SQL;
+        $sql_create_table_seed[] = <<<SQL
+CREATE UNIQUE INDEX idx_info_hash ON {{%seed}}(info_hash);
+SQL;
+        array_map($execute_sql, $sql_create_table_seed);
 
 //========================================================================
 
         $sql_create_table_history = array();
         $sql_create_table_history[] = <<<SQL
 CREATE TABLE IF NOT EXISTS {{%history}} (
-    histroy_id 			BIGSERIAL NOT NULL PRIMARY KEY,
+    history_id 			BIGSERIAL NOT NULL PRIMARY KEY,
     user_id				int NOT NULL REFERENCES {{%user}}(user_id),
     seed_id				int NOT NULL REFERENCES {{%seed}}(seed_id),
     stat_up 			bigint NOT NULL DEFAULT 0,
@@ -120,6 +127,23 @@ SQL;
 
 //========================================================================
 
+        $sql_create_table_seed_operation_record = array();
+        $sql_create_table_seed_operation_record[] = <<<SQL
+CREATE TABLE IF NOT EXISTS {{%seed_operation_record}} (
+    record_id  			BIGSERIAL NOT NULL PRIMARY KEY,
+    admin_id			int NOT NULL REFERENCES {{%user}}(user_id),
+    seed_id				int NOT NULL REFERENCES {{%seed}}(seed_id),
+    publisher_id		int NOT NULL REFERENCES {{%user}}(user_id),
+    operation_type      char(20) NOT NULL DEFAULT 'NOT_RECORDED',
+    detail_info         json,
+    create_time			timestamp NOT NULL DEFAULT now(),
+    update_time 		timestamp NOT NULL DEFAULT now()
+);
+SQL;
+        array_map($execute_sql, $sql_create_table_seed_operation_record);
+
+//========================================================================
+
         $create_trigger_peer_update = array();
         $create_trigger_peer_update[] = <<<SQL
 CREATE OR REPLACE FUNCTION
@@ -134,6 +158,7 @@ DECLARE
   down_coef integer := 1;
   stat_up_diff BIGINT := 0;
   stat_down_diff BIGINT := 0;
+  live_time_diff INT :=0;
 BEGIN
   SELECT coefs_stack[1][1],coefs_stack[1][2] INTO
     up_coef,down_coef FROM seed WHERE seed_id=NEW.seed_id;
@@ -150,6 +175,10 @@ BEGIN
   IF down_diff<0
   THEN
     down_diff := 0;
+  END IF;
+  IF NEW.status='Seeder' AND OLD.status='Seeder'
+  THEN
+    live_time_diff := cast(extract(EPOCH from NEW.update_time-OLD.update_time) as INTEGER);
   END IF;
   SELECT (up_diff*up_coef)/100,(down_diff*down_coef)/100
   INTO stat_up_diff,stat_down_diff;
@@ -170,10 +199,21 @@ BEGIN
     user_id=NEW.user_id;
   UPDATE "seed" SET
     traffic_up=traffic_up+up_diff,
-    traffic_down=traffic_down+down_diff
+    traffic_down=traffic_down+down_diff,
+    live_time=live_time+live_time_diff
   WHERE
     seed_id=NEW.seed_id;
+
+  IF NEW.status='Seeder'
+  THEN
+      UPDATE "seed" SET
+        last_active_time=now()
+      WHERE
+        seed_id=NEW.seed_id;
+  END IF;
+
   RETURN NULL;
+
 END;
 $$
 LANGUAGE plpgsql;
@@ -274,8 +314,9 @@ SQL;
     {
         $this->dropTable('{{%peer}}');
         $this->dropTable('{{%history}}');
-        $this->dropTable('{{%user}}');
+        $this->dropTable('{{%seed_operation_record}}');
         $this->dropTable('{{%seed}}');
+        $this->dropTable('{{%user}}');
         $sqls = [
             "DROP TYPE IF EXISTS peer_type;",
             "DROP TYPE IF EXISTS user_priv;",

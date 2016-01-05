@@ -1,0 +1,517 @@
+{
+  "0": {
+    "name_prefix": "game",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "平台",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "platform",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "Windows":"Windows",
+              "Linux":"Linux",
+              "Mac":"Mac",
+              "Android":"Android",
+              "iOS":"iOS",
+              "WP":"WP",
+              "XBOX":"XBOX",
+              "PSX":"PSX",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "游戏类型",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "type",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "ACT":"ACT",
+              "ADV":"ADV",
+              "ARPG":"ARPG",
+              "AVG":"AVG",
+              "CAG":"CAG",
+              "FPS":"FPS",
+              "FTG":"FTG",
+              "MMORPG":"MMORPG",
+              "MOBA":"MOBA",
+              "MUG":"MUG",
+              "PUZ":"PUZ",
+              "RAC":"RAC",
+              "RPG":"RPG",
+              "RTS":"RTS",
+              "SIM":"SIM",
+              "SLG":"SLG",
+              "SPG":"SPG",
+              "SRPG":"SRPG",
+              "STG":"STG",
+              "TAB":"TAB",
+              "TCG":"TCG",
+              "TPS":"TPS",
+              "ETC":"ETC"
+            }
+          }
+        ]
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "语言",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "language",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体中文": "简体中文",
+              "繁体中文": "繁体中文",
+              "英文": "英文"
+            }
+          }
+        ]
+      },
+      {
+        "title": "数据格式",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "安装包":"安装包",
+              "压缩包":"压缩包",
+              "光盘镜像":"光盘镜像",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "制作商",
+        "type": "text",
+        "optional": true,
+        "name": "producer",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行商",
+        "type": "text",
+        "optional": true,
+        "name": "publisher",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "制作/破解",
+        "type": "text",
+        "optional": true,
+        "name": "cracker",
+        "width": "200px",
+        "regex": ""
+      }
+    ],
+    "subject": [
+      "platform",
+      "type",
+      "cname",
+      "ename",
+      "language",
+      "format"
+    ]
+  },
+
+
+  "1": {
+    "name_prefix": "record",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "平台",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "platform",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "Windows":"Windows",
+              "Linux":"Linux",
+              "Mac":"Mac",
+              "Android":"Android",
+              "iOS":"iOS",
+              "WP":"WP",
+              "XBOX":"XBOX",
+              "PSX":"PSX",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "游戏类型",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "type",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "ACT":"ACT",
+              "ADV":"ADV",
+              "ARPG":"ARPG",
+              "AVG":"AVG",
+              "CAG":"CAG",
+              "FPS":"FPS",
+              "FTG":"FTG",
+              "MMORPG":"MMORPG",
+              "MOBA":"MOBA",
+              "MUG":"MUG",
+              "PUZ":"PUZ",
+              "RAC":"RAC",
+              "RPG":"RPG",
+              "RTS":"RTS",
+              "SIM":"SIM",
+              "SLG":"SLG",
+              "SPG":"SPG",
+              "SRPG":"SRPG",
+              "STG":"STG",
+              "TAB":"TAB",
+              "TCG":"TCG",
+              "TPS":"TPS",
+              "ETC":"ETC"
+            }
+          }
+        ]
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "语言",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "language",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体中文": "简体中文",
+              "繁体中文": "繁体中文",
+              "英文": "英文"
+            }
+          }
+        ]
+      },
+      {
+        "title": "数据格式",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "安装包":"安装包",
+              "压缩包":"压缩包",
+              "光盘镜像":"光盘镜像",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "版本号",
+        "type": "text",
+        "optional": false,
+        "name": "version",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "制作商",
+        "type": "text",
+        "optional": true,
+        "name": "producer",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行商",
+        "type": "text",
+        "optional": true,
+        "name": "publisher",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "制作/破解",
+        "type": "text",
+        "optional": true,
+        "name": "cracker",
+        "width": "200px",
+        "regex": ""
+      }
+    ],
+    "subject": [
+      "platform",
+      "type",
+      "cname",
+      "ename",
+      "language",
+      "format",
+      "version"
+    ]
+  },
+
+
+  "2": {
+    "name_prefix": "record",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "平台",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "platform",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "Windows":"Windows",
+              "Linux":"Linux",
+              "Mac":"Mac",
+              "Android":"Android",
+              "iOS":"iOS",
+              "WP":"WP",
+              "XBOX":"XBOX",
+              "PSX":"PSX",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "游戏类型",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "type",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "ACT":"ACT",
+              "ADV":"ADV",
+              "ARPG":"ARPG",
+              "AVG":"AVG",
+              "CAG":"CAG",
+              "FPS":"FPS",
+              "FTG":"FTG",
+              "MMORPG":"MMORPG",
+              "MOBA":"MOBA",
+              "MUG":"MUG",
+              "PUZ":"PUZ",
+              "RAC":"RAC",
+              "RPG":"RPG",
+              "RTS":"RTS",
+              "SIM":"SIM",
+              "SLG":"SLG",
+              "SPG":"SPG",
+              "SRPG":"SRPG",
+              "STG":"STG",
+              "TAB":"TAB",
+              "TCG":"TCG",
+              "TPS":"TPS",
+              "ETC":"ETC"
+            }
+          }
+        ]
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "语言",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "language",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体中文": "简体中文",
+              "繁体中文": "繁体中文",
+              "英文": "英文"
+            }
+          }
+        ]
+      },
+      {
+        "title": "数据格式",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "安装包":"安装包",
+              "压缩包":"压缩包",
+              "光盘镜像":"光盘镜像",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "版本号",
+        "type": "text",
+        "optional": false,
+        "name": "version",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "补丁类型",
+        "type": "select",
+        "user_defined": true,
+        "optional": false,
+        "name": "patch_type",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "破解补丁":"破解补丁",
+              "升级补丁":"升级补丁",
+              "DLC":"DLC",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "制作商",
+        "type": "text",
+        "optional": true,
+        "name": "producer",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行商",
+        "type": "text",
+        "optional": true,
+        "name": "publisher",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "制作/破解",
+        "type": "text",
+        "optional": true,
+        "name": "cracker",
+        "width": "200px",
+        "regex": ""
+      }
+    ],
+    "subject": [
+      "platform",
+      "type",
+      "cname",
+      "ename",
+      "language",
+      "format",
+      "version",
+      "patch_type"
+    ]
+  }
+}

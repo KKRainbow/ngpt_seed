@@ -20,7 +20,7 @@ foreach ($seeds as $seed) {
         'incomplete' => $seed->leecher_count,
         'name' => $seed->torrent_name,
     ];
-    $arr['file'][hex2bin($seed->info_hash)] = $tmp;
+    $arr['files'][hex2bin($seed->info_hash)] = $tmp;
 }
 Yii::info("Response send");
 Yii::info($arr);

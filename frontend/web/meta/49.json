@@ -1,0 +1,1080 @@
+{
+  "0": {
+    "name_prefix": "animation",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "内容类别",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "content_type",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "TVA":"TVA",
+              "OVA":"OVA",
+              "OAD":"OAD",
+              "SP":"SP",
+              "剧场版":"剧场版"
+            }
+          }
+        ]
+      },
+      {
+        "title": "来源类别",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "source_type",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "TV":"TV",
+              "WEB":"WEB",
+              "DISK":"DISK"
+            }
+          }
+        ]
+      },
+      {
+        "title": "季度信息",
+        "type": "text",
+        "optional": false,
+        "name": "season",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "视频编码",
+        "type": "select",
+        "optional": false,
+        "user_defined": false,
+        "name": "content_encoding",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "H264":"H264",
+              "H264 10Bit":"H264 10Bit",
+              "H265":"H265",
+              "VC1":"VC1",
+              "MPEG2":"MPEG2",
+              "RMVB":"RMVB"
+            }
+          }
+        ]
+      },
+      {
+        "title": "片源",
+        "type": "select",
+        "optional": false,
+        "user_defined": false,
+        "name": "source",
+        "width" : "300px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "TVRip": "TVRip",
+              "HDTVRip": "HDTVRip",
+              "DVDRip":"DVDRip",
+              "BDRip":"BDRip",
+              "WEBRip":"WEBRip",
+              "LDRip":"LDRip",
+              "DVDISO":"DVDISO",
+              "BDISO":"BDISO",
+              "BDMV":"BDMV",
+              "TVTS":"TVTS"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "optional": false,
+        "user_defined": false,
+        "name": "subtitle",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "中文字幕":"中文字幕",
+              "外文字幕":"外文字幕",
+              "多语字幕":"多语字幕",
+              "无需字幕":"无需字幕",
+              "暂无字幕":"暂无字幕"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕组",
+        "type": "text",
+        "optional": false,
+        "name": "subtitle_team",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "content_type",
+      "cname",
+      "ename",
+      "season",
+      "subtitle_team",
+      "source",
+      "content_encoding"
+    ]
+  },
+
+  "1": {
+    "name_prefix": "ani_music",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "商品序列号",
+        "type": "text",
+        "optional": false,
+        "name": "series_num",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "音频格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "FLAC":"FLAC",
+              "WAV":"WAV",
+              "APE":"APE",
+              "TAK":"TAK",
+              "320K":"320K",
+              "192K":"192K"
+            }
+          }
+        ]
+      },
+      {
+        "title": "音频质量",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "quality",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "无损音频":"无损音频",
+              "有损音频":"有损音频"
+            }
+          }
+        ]
+      },
+      {
+        "title": "专辑类别",
+        "type": "select",
+        "optional": false,
+        "user_defined": false,
+        "name": "album_type",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "单曲":"单曲",
+              "专辑":"专辑",
+              "合辑":"合辑",
+              "原声集":"原声集",
+              "现场":"现场",
+              "广播剧":"广播剧",
+              "精选集":"精选集"
+            }
+          }
+        ]
+      },
+      {
+        "title": "专辑作者",
+        "type": "text",
+        "optional": false,
+        "name": "author",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "cname",
+      "ename",
+      "series_num",
+      "album_type",
+      "author",
+      "quality",
+      "format"
+    ]
+  },
+
+  "2": {
+    "name_prefix": "drawing",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "卷数",
+        "type": "text",
+        "optional": false,
+        "name": "volume",
+        "width": "200px",
+        "regex": "",
+        "comment" : "如 Vol.1"
+      },
+      {
+        "title": "图像格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "JPEG":"JPEG",
+              "PNG":"PNG",
+              "BMP":"BMP",
+              "TIF":"TIF"
+            }
+          }
+        ]
+      },
+      {
+        "title": "原作者",
+        "type": "text",
+        "optional": false,
+        "name": "author",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "汉化类别",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "chinese",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体汉化":"简体汉化",
+              "繁体汉化":"繁体汉化",
+              "无需汉化":"无需汉化",
+              "暂无汉化":"暂无汉化"
+            }
+          }
+        ]
+      },
+      {
+        "title": "汉化作者",
+        "type": "text",
+        "optional": false,
+        "name": "chinese_author",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "cname",
+      "ename",
+      "volume",
+      "chinese",
+      "chinese_author",
+      "author",
+      "format"
+    ]
+  },
+
+  "3": {
+    "name_prefix": "settings_collect",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "卷数",
+        "type": "text",
+        "optional": false,
+        "name": "volume",
+        "width": "200px",
+        "regex": "",
+        "comment" : "如 Vol.1"
+      },
+      {
+        "title": "图像格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "JPEG":"JPEG",
+              "PNG":"PNG",
+              "BMP":"BMP",
+              "TIF":"TIF"
+            }
+          }
+        ]
+      },
+      {
+        "title": "原作者",
+        "type": "text",
+        "optional": false,
+        "name": "author",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "汉化类别",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "chinese",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体汉化":"简体汉化",
+              "繁体汉化":"繁体汉化",
+              "无需汉化":"无需汉化",
+              "暂无汉化":"暂无汉化"
+            }
+          }
+        ]
+      },
+      {
+        "title": "汉化作者",
+        "type": "text",
+        "optional": false,
+        "name": "chinese_author",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "cname",
+      "ename",
+      "volume",
+      "chinese",
+      "chinese_author",
+      "author",
+      "format"
+    ]
+  },
+
+  "4": {
+    "name_prefix": "drawings_collect",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "卷数",
+        "type": "text",
+        "optional": false,
+        "name": "volume",
+        "width": "200px",
+        "regex": "",
+        "comment" : "如 Vol.1"
+      },
+      {
+        "title": "图像格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "JPEG":"JPEG",
+              "PNG":"PNG",
+              "BMP":"BMP",
+              "TIF":"TIF"
+            }
+          }
+        ]
+      },
+      {
+        "title": "原作者",
+        "type": "text",
+        "optional": false,
+        "name": "author",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "汉化类别",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "chinese",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体汉化":"简体汉化",
+              "繁体汉化":"繁体汉化",
+              "无需汉化":"无需汉化",
+              "暂无汉化":"暂无汉化"
+            }
+          }
+        ]
+      },
+      {
+        "title": "汉化作者",
+        "type": "text",
+        "optional": false,
+        "name": "chinese_author",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "cname",
+      "ename",
+      "volume",
+      "chinese",
+      "chinese_author",
+      "author",
+      "format"
+    ]
+  },
+
+  "5": {
+    "name_prefix": "live",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行标识",
+        "type": "text",
+        "optional": false,
+        "name": "flag",
+        "width": "200px",
+        "regex": "",
+        "comment" : "如 Vol.1"
+      },
+      {
+        "title": "视频格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "H264":"H264",
+              "H265":"H265",
+              "MPEG2":"MPEG2",
+              "WMV-HD":"WMV-HD",
+              "VC-1":"VC-1",
+              "RMVB":"RMVB",
+              "MPEG4":"MPEG4"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行商",
+        "type": "text",
+        "optional": false,
+        "name": "publisher",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "subtitle",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "中文字幕":"中文字幕",
+              "外文字幕":"外文字幕",
+              "多语字幕":"多语字幕",
+              "无需字幕":"无需字幕",
+              "暂无字幕":"暂无字幕"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕组",
+        "type": "text",
+        "optional": false,
+        "name": "subtitle_team",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "cname",
+      "ename",
+      "flag",
+      "subtitle",
+      "subtitle_team",
+      "publisher",
+      "format"
+    ]
+  },
+
+  "6": {
+    "name_prefix": "AMV",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行标识",
+        "type": "text",
+        "optional": false,
+        "name": "flag",
+        "width": "200px",
+        "regex": "",
+        "comment" : "如 Vol.1"
+      },
+      {
+        "title": "视频格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "H264":"H264",
+              "H265":"H265",
+              "MPEG2":"MPEG2",
+              "WMV-HD":"WMV-HD",
+              "VC-1":"VC-1",
+              "RMVB":"RMVB",
+              "MPEG4":"MPEG4"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行商",
+        "type": "text",
+        "optional": false,
+        "name": "publisher",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "subtitle",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "中文字幕":"中文字幕",
+              "外文字幕":"外文字幕",
+              "多语字幕":"多语字幕",
+              "无需字幕":"无需字幕",
+              "暂无字幕":"暂无字幕"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕组",
+        "type": "text",
+        "optional": false,
+        "name": "subtitle_team",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "cname",
+      "ename",
+      "flag",
+      "subtitle",
+      "subtitle_team",
+      "publisher",
+      "format"
+    ]
+  },
+
+  "7": {
+    "name_prefix": "other_video",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本":"日本",
+              "美国":"美国",
+              "中国":"中国",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行标识",
+        "type": "text",
+        "optional": false,
+        "name": "flag",
+        "width": "200px",
+        "regex": "",
+        "comment" : "如 Vol.1"
+      },
+      {
+        "title": "视频格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "H264":"H264",
+              "H265":"H265",
+              "MPEG2":"MPEG2",
+              "WMV-HD":"WMV-HD",
+              "VC-1":"VC-1",
+              "RMVB":"RMVB",
+              "MPEG4":"MPEG4"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行商",
+        "type": "text",
+        "optional": false,
+        "name": "publisher",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "subtitle",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "中文字幕":"中文字幕",
+              "外文字幕":"外文字幕",
+              "多语字幕":"多语字幕",
+              "无需字幕":"无需字幕",
+              "暂无字幕":"暂无字幕"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕组",
+        "type": "text",
+        "optional": false,
+        "name": "subtitle_team",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "发行日期",
+        "type": "calendar",
+        "optional": true,
+        "name": "date",
+        "width": "200px"
+      }
+    ],
+    "subject": [
+      "region",
+      "cname",
+      "ename",
+      "flag",
+      "subtitle",
+      "subtitle_team",
+      "publisher",
+      "format"
+    ]
+  }
+}

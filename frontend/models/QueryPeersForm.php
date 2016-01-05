@@ -37,7 +37,13 @@ class QueryPeersForm extends Model
     public $ipv6 = null;
     public $ipv6port = 0;
 
+    /**
+     * @var Seed $_seed
+     */
     private $_seed;
+    /**
+     * @var Peer $_peer
+     */
     private $_peer;
 
     public function getPeer()
@@ -185,11 +191,14 @@ class QueryPeersForm extends Model
                 $this->ipv4port = $this->port;
             }],
             ['info_hash', function ($attr, $param) {
+
                 $this->_seed = Seed::findOne([
                     'info_hash' => $this->$attr
                 ]);
                 if (empty($this->_seed)) {
                     $this->addError('info_hash', 'no such seed');
+                } elseif (!$this->_seed->is_valid) {
+                    $this->addError('info_hash', 'seed is invalid');
                 }
             }],
         ];

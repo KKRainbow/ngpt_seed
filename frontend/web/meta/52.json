@@ -1,0 +1,138 @@
+{
+  "none": {
+    "name_prefix": "game_video",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "游戏类型",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "type",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "ACT":"ACT",
+              "ADV":"ADV",
+              "ARPG":"ARPG",
+              "AVG":"AVG",
+              "CAG":"CAG",
+              "FPS":"FPS",
+              "FTG":"FTG",
+              "MMORPG":"MMORPG",
+              "MOBA":"MOBA",
+              "MUG":"MUG",
+              "PUZ":"PUZ",
+              "RAC":"RAC",
+              "RPG":"RPG",
+              "RTS":"RTS",
+              "SIM":"SIM",
+              "SLG":"SLG",
+              "SPG":"SPG",
+              "SRPG":"SRPG",
+              "STG":"STG",
+              "TAB":"TAB",
+              "TCG":"TCG",
+              "TPS":"TPS",
+              "ETC":"ETC"
+            }
+          }
+        ]
+      },
+      {
+        "title": "游戏名称",
+        "type": "text",
+        "optional": false,
+        "name": "game_name",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "视频名称",
+        "type": "text",
+        "optional": false,
+        "name": "video_name",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "视频作者",
+        "type": "text",
+        "optional": false,
+        "user_defined": true,
+        "name": "author"
+      },
+      {
+        "title": "视频格式",
+        "type": "select",
+        "user_defined": false,
+        "optional": false,
+        "name": "format",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "MP4":"MP4",
+              "FLV":"FLV",
+              "AVI":"AVI"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "user_defined": false,
+        "optional": false,
+        "name": "subtitle",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "中英字幕":"中英字幕",
+              "无需字幕":"无需字幕"
+            }
+          }
+        ]
+      },
+      {
+        "title": "分辨率",
+        "type": "select",
+        "optional": true,
+        "user_defined" : true,
+        "name": "resolution",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "800X600":"800X600",
+              "848X480":"848X480",
+              "1280X720":"1280X720",
+              "1920X1080":"1920X1080"
+            }
+          }
+        ]
+      }
+    ],
+    "subject": [
+      "type",
+      "game_name",
+      "video_name",
+      "author",
+      "format",
+      "subtitle",
+      "resolution"
+    ]
+  }
+}

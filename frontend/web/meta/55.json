@@ -1,0 +1,133 @@
+{
+  "none":{
+    "name_prefix":"variety",
+    "form" :
+    [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "大陆": "大陆",
+              "港台": "港台",
+              "欧美": "欧美",
+              "日韩": "日韩",
+              "其他": "其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "播出时间",
+        "type": "text",
+        "optional": false,
+        "name": "date",
+        "width": "80px",
+        "comment":"格式如: 20150510",
+        "regex": "\\\\d{8}"
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "150px",
+        "regex": ""
+      },
+      {
+        "title": "主要内容",
+        "type": "text",
+        "optional": false,
+        "name": "contents",
+        "width": "240px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": true,
+        "name": "ename",
+        "width": "150px",
+        "regex": ""
+      },
+      {
+        "title": "格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "width": "80px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "MP4": "MP4",
+              "MKV": "MKV",
+              "MPG": "MPG",
+              "WMV": "WMV"
+            }
+          }
+        ]
+      },
+      {
+        "title": "语言",
+        "type": "select",
+        "user_defined": true,
+        "optional": true,
+        "name": "language",
+        "width": "80px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "汉语": "汉语",
+              "粤语": "粤语",
+              "英语": "英语",
+              "日语": "日语",
+              "韩语": "韩语"
+            }
+          }
+        ]
+      },
+      {
+        "title": "分辨率",
+        "type": "select",
+        "optional": true,
+        "user_defined": true,
+        "name": "resolution",
+        "width": "80px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "720p": "720p",
+              "1080p": "1080p",
+              "576p": "576p",
+              "480p": "480p"
+            }
+          }
+        ]
+      }
+    ],
+    "subject" :
+    [
+      "region",
+      "date",
+      "cname",
+      "contents",
+      "resolution"
+    ]
+  }
+}

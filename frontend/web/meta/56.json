@@ -1,0 +1,113 @@
+{
+  "none":{
+    "name_prefix": "study",
+    "form" :
+    [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": true,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "类别",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "category",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "北航课程": "北航课程",
+              "工业控制": "工业控制",
+              "科技理论": "科技理论",
+              "数理基础": "数理基础",
+              "外语": "外语",
+              "计算机": "计算机",
+              "考研": "考研",
+              "史哲": "史哲",
+              "文学": "文学",
+              "经管": "经管",
+              "娱乐": "娱乐",
+              "工具书": "工具书",
+              "其它": "其它"
+            }
+          }
+        ]
+      },
+      {
+        "title": "语言",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "language",
+        "width": "60px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "汉语": "汉语",
+              "英语": "英语",
+              "法语": "法语",
+              "日语": "日语",
+              "德语": "德语"
+            }
+          }
+        ]
+      },
+      {
+        "title": "文件格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "file_format",
+        "width": "60px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "DOC": "DOC",
+              "PDF": "PDF",
+              "MP4": "MP4",
+              "MP3": "MP3",
+              "JPG": "JPG"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行时间",
+        "type": "calendar",
+        "optional": false,
+        "name": "pub_date",
+        "width": "80px"
+      }
+    ],
+    "subject" :
+    [
+      "category",
+      "cname",
+      "ename",
+      "language",
+      "file_format"
+    ]
+  }
+}

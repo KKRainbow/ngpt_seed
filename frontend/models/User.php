@@ -26,6 +26,7 @@ use yii\web\IdentityInterface;
  *
  * @property History[] $histories
  * @property Peer[] $peers
+ * @property Seed[] $publishedSeed
  */
 class User extends ActiveRecordTS implements IdentityInterface
 {
@@ -87,6 +88,14 @@ class User extends ActiveRecordTS implements IdentityInterface
     public function getPeers()
     {
         return $this->hasMany(Peer::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPublishedSeed()
+    {
+        return $this->hasMany(Seed::className(), ['publisher_user_id' => 'user_id']);
     }
 
     /**

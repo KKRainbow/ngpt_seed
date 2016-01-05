@@ -1,0 +1,130 @@
+{
+  "none": {
+    "name_prefix": "series",
+    "form": [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "类别",
+        "type": "radios",
+        "user_defined": true,
+        "optional": false,
+        "name": "type",
+        "width":"200px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "美剧":"美剧",
+              "英剧":"英剧",
+              "大陆":"大陆",
+              "港台":"港台",
+              "日韩":"日韩",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "季度信息",
+        "type": "text",
+        "optional": true,
+        "user_defined": true,
+        "name": "season",
+        "width":"200px"
+      },
+      {
+        "title": "文件格式",
+        "type": "select",
+        "optional": true,
+        "user_defined": true,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "720p":"720p",
+              "1080p":"1080p",
+              "1080i":"1080i",
+              "HDTVRip":"HDTVRip",
+              "TVRip":"TVRip",
+              "HALFCD":"HALFCD",
+              "MiniSD":"MiniSD",
+              "其他":"其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "语言",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "language",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "国语": "国语",
+              "英文": "英文",
+              "粤语": "粤语",
+              "德语": "德语",
+              "法语": "法语",
+              "日语": "日语",
+              "韩语": "韩语",
+              "多种": "多种"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "subtitle",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "英文字幕": "英文字幕",
+              "中文字幕": "中文字幕",
+              "中英字幕": "中英字幕",
+              "暂无字幕": "暂无字幕"
+            }
+          }
+        ]
+      }
+    ],
+    "subject": [
+      "type",
+      "cname",
+      "ename",
+      "season",
+      "format",
+      "language",
+      "subtitle"
+    ]
+  }
+}

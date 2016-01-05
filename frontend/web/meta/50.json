@@ -1,0 +1,166 @@
+{
+  "none":{
+    "name_prefix": "ziliudi_pplot",
+    "form" :
+    [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "地区",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "region",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "日本": "日本",
+              "美国": "美国",
+              "中国": "中国",
+              "其他": "其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "外文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "文件格式",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "format",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "光盘镜像": "光盘镜像",
+              "压缩包": "压缩包",
+              "安装包": "安装包",
+              "加载文件": "加载文件",
+              "升级补丁": "升级补丁",
+              "汉化补丁": "汉化补丁"
+            }
+          }
+        ]
+      },
+      {
+        "title": "平台",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "platform",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "PC": "PC",
+              "PSP": "PSP",
+              "PSV": "PSV",
+              "PS3": "PS3",
+              "PS4": "PS4",
+              "DS": "DS",
+              "GB": "GB",
+              "XBOX": "XBOX",
+              "iOS": "iOS",
+              "Android": "Android",
+              "其他": "其他"
+            }
+          }
+        ]
+      },
+      {
+        "title": "类型",
+        "type": "radios",
+        "user_defined": false,
+        "optional": false,
+        "name": "type",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "AVG": "AVG",
+              "MUG": "MUG",
+              "RPG": "RPG",
+              "SLG": "SLG",
+              "STG": "STG",
+              "ETC": "ETC"
+            }
+          }
+        ]
+      },
+      {
+        "title": "发行商",
+        "type": "text",
+        "optional": false,
+        "name": "publisher",
+        "width": "120px",
+        "regex": ""
+      },
+      {
+        "title": "汉化类别",
+        "type": "select",
+        "user_defined": true,
+        "optional": false,
+        "name": "subs",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体中文": "简体中文",
+              "繁体中文": "繁体中文",
+              "日文": "日文",
+              "英文": "英文"
+            }
+          }
+        ]
+      },
+      {
+        "title": "汉化作者",
+        "type": "text",
+        "optional": false,
+        "name": "subs_group",
+        "width": "120px",
+        "regex": ""
+      },
+      {
+        "title": "发行时间",
+        "type": "calendar",
+        "optional": true,
+        "name": "pub_date",
+        "width": "80px"
+      }
+    ],
+    "subject" :
+    [
+      "region",
+      "platform",
+      "cname",
+      "ename",
+      "type",
+      "subs",
+      "subs_group",
+      "format"
+    ]
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "none":{
+    "name_prefix": "sports",
+    "form" :
+    [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "体育项目",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "event",
+        "width": "75px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "篮球": "篮球",
+              "足球": "足球",
+              "斯诺克": "斯诺克",
+              "排球": "排球",
+              "羽毛球": "羽毛球"
+            }
+          }
+        ]
+      },
+      {
+        "title": "日期",
+        "type": "calendar",
+        "optional": false,
+        "name": "date",
+        "regex": "\\\\d{4}-\\\\d{2}-\\\\d{2}"
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": true,
+        "name": "ename",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "赛事名称",
+        "type": "text",
+        "optional": false,
+        "name": "match_name",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "比赛双方",
+        "type": "text",
+        "optional": false,
+        "name": "sides",
+        "width": "200px",
+        "regex": ""
+      },
+      {
+        "title": "解说",
+        "type": "select",
+        "optional": true,
+        "user_defined": true,
+        "name": "commentator",
+        "width": "80px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "CCTV": "CCTV",
+              "ESPN": "ESPN"
+            }
+          }
+        ]
+      },
+      {
+        "title": "格式",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "format",
+        "width": "80px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "MP4": "MP4",
+              "FLV": "FLV"
+            }
+          }
+        ]
+      },
+      {
+        "title": "语言",
+        "type": "select",
+        "optional": true,
+        "user_defined": true,
+        "name": "language",
+        "width": "80px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "中文": "中文",
+              "英文": "英文"
+            }
+          }
+        ]
+      },
+      {
+        "title": "字幕",
+        "type": "select",
+        "optional": true,
+        "user_defined": true,
+        "name": "subs",
+        "width": "80px",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "中文字幕": "中文字幕",
+              "英文字幕": "英文字幕",
+              "暂无字幕": "中文字幕"
+            }
+          }
+        ]
+      },
+      {
+        "title": "分辨率",
+        "type": "text",
+        "optional": false,
+        "name": "resolution",
+        "width": "150px",
+        "regex": ""
+      }
+    ],
+    "subject" :
+    [
+      "event",
+      "date",
+      "match_name",
+      "cname",
+      "ename",
+      "sides",
+      "language",
+      "subs",
+      "resolution"
+    ]
+  }
+}
