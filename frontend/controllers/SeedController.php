@@ -13,6 +13,7 @@ use common\library\TorrentFileTool;
 use frontend\models\History;
 use frontend\models\SeedOperationRecord;
 use frontend\models\SeedOperationRecordQuery;
+use frontend\models\SeedSearchForm;
 use frontend\models\User;
 use yii\web\Controller;
 use frontend\models\Seed;
@@ -43,7 +44,7 @@ class SeedController extends Controller
         return $behaviors;
     }
 
-    public function actionUpload($replace = false)
+    public function actionUpload()
     {
         $seedModel = new UploadedSeedFile();
         if (Yii::$app->request->isPost) {
@@ -52,7 +53,7 @@ class SeedController extends Controller
             $seedModel->attributes = Yii::$app->request->post();
             Yii::info($seedModel->torrentFile);
             $retval = null;
-            $res = $seedModel->upload($retval, $replace);
+            $res = $seedModel->upload($retval);
             Yii::info($retval);
             $response['result'] = $retval;
             if ($retval == 'succeed') {
@@ -261,5 +262,29 @@ class SeedController extends Controller
         $ret['extra'] = $tmp;
         Yii::info($ret);
         return $ret;
+    }
+
+    public function actionSearch()
+    {
+        $form = new SeedSearchForm();
+        $form->attributes = Yii::$app->request->post();
+        if (!$form->validate()) {
+            $res =  [
+                'result' => 'failed',
+                'extra' => $form->errors
+            ];
+        } else {
+            $seeds = $form->searchSeeds();
+            $res =  [
+                'result' => 'succeed',
+            ];
+            $res['extra'] = [];
+            /** @var Seed $seed */
+            foreach ($seeds as $seed) {
+                $res['extra'][] = $seed->seed_id;
+            }
+        }
+        Yii::info($res);
+        return $res;
     }
 }

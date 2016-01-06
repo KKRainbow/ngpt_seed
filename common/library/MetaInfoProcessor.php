@@ -20,8 +20,6 @@ class MetaInfoProcessor
     public $json;
     public $post;
     public $pre;
-    //历史遗留，改用detail代替
-    public $f;
     private $detail = [];
 
     /**
@@ -78,21 +76,6 @@ class MetaInfoProcessor
         // 解除原引用
         $post = $p;
 
-        $this->f = array(
-            'type_id' => $post['typeid'],
-            'field1' => '',
-            'field2' => '',
-            'field3' => '',
-            'field4' => '',
-            'field5' => '',
-            'field6' => '',
-            'field7' => '',
-            'field8' => '',
-            'field9' => '',
-            'field10' => '',
-            'field11' => '',
-            'field12' => ''
-        );
         $json = json_decode($meta);
 
         if ($json == null) {
@@ -170,23 +153,15 @@ class MetaInfoProcessor
         //按顺序放到f数组里就好,存不下的不存
         $index = 0;
         $c = count($this->json->form);
-        foreach ($this->f as $k => $v) {
-            if ($k == 'type_id') {
-                continue;
-            }
+        while ($index < $c) {
             while (!isset($this->post[$this->json->form[$index]->name])) {
                 $index++;
             }
             $name = $this->json->form[$index]->name;
-            $this->f[$k] = $this->post[$name];
             $this->detail[$this->json->form[$index]->title] = $this->post[$name];
             $index++;
-            if ($index == $c) {
-                break;
-            }
         }
-        $this->f['type_id'] = $this->post['typeid'];
-        return $this->f;
+        return $this->detail;
     }
 
     public function getDetail()
