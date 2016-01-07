@@ -146,6 +146,32 @@ SQL;
 
 //========================================================================
 
+        $sql_create_table_user_peer_event = array();
+        $sql_create_table_user_peer_event[] = <<<SQL
+CREATE TYPE event_type AS ENUM ('Start','Stop', 'Complete');
+SQL;
+        $sql_create_table_user_peer_event[] = <<<SQL
+CREATE TABLE IF NOT EXISTS {{%user_peer_event}} (
+    event_id  			BIGSERIAL NOT NULL PRIMARY KEY,
+    user_id 			int NOT NULL REFERENCES {{%user}}(user_id),
+    seed_id				int NOT NULL REFERENCES {{%seed}}(seed_id),
+    event_type          event_type NOT NULL,
+    ipv4		        inet,
+    ipv6                inet,
+    status              peer_type NOT NULL,
+    create_time			timestamp NOT NULL DEFAULT now(),
+);
+SQL;
+        $sql_create_table_user_peer_event[] = <<<SQL
+CREATE INDEX idx_usevent_user_id ON {{%user_peer_event}}(user_id);
+SQL;
+        $sql_create_table_user_peer_event[] = <<<SQL
+CREATE INDEX idx_usevent_seed_id ON {{%user_peer_event}}(seed_id);
+SQL;
+        array_map($execute_sql, $sql_create_table_user_peer_event);
+
+//========================================================================
+
         $create_trigger_peer_update = array();
         $create_trigger_peer_update[] = <<<SQL
 CREATE OR REPLACE FUNCTION
@@ -234,6 +260,7 @@ BEGIN
     WHEN 'Leecher' THEN
     UPDATE "seed" SET leecher_count=leecher_count-1;
   END CASE;
+  INSERT INTO
   RETURN NULL;
 END;
 $$
@@ -314,6 +341,7 @@ SQL;
 
     public function down()
     {
+        $this->dropTable('{{%user_peer_event}}');
         $this->dropTable('{{%peer}}');
         $this->dropTable('{{%history}}');
         $this->dropTable('{{%seed_operation_record}}');

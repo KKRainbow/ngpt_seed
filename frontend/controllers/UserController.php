@@ -8,7 +8,12 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Peer;
+use frontend\models\User;
+use Yii;
+use yii\filters\auth\QueryParamAuth;
 use yii\web\Controller;
+use yii\web\Response;
 
 class UserController extends Controller
 {
@@ -29,8 +34,26 @@ class UserController extends Controller
         return $behaviors;
     }
 
-    public function actionInfo()
+    public function actionInfo($detail = false)
     {
-
+        /** @var User $user */
+        $user = User::findOne(Yii::$app->user->identity->getId());
+        $ret = $user->attributes;
+        if ($detail) {
+            $peers = $user->peers;
+            $seeder = 0;
+            $leecher = 0;
+            foreach ($peers as $p) {
+                if ($p->status == 'Seeder') {
+                    $seeder++;
+                } else {
+                    $leecher++;
+                }
+            }
+            $ret['seeder'] = $seeder;
+            $ret['leecher'] = $leecher;
+        }
+        return $ret;
     }
+
 }

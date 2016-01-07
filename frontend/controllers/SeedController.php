@@ -39,6 +39,7 @@ class SeedController extends Controller
                 'class' => 'yii\filters\ContentNegotiator',
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
+                    'text/html' => Response::FORMAT_HTML,
                 ],
         ];
         return $behaviors;
@@ -197,7 +198,7 @@ class SeedController extends Controller
      * @return array
      * @throws \Exception
      */
-    public function actionSetCoef($seed_id, $upcoe, $downcoe, $duration, $reason)
+    public function actionSetCoef($seed_id, $upcoe, $downcoe, $duration, $reason, $replace)
     {
         $ret = [];
         $ret['result'] = 'failed';
@@ -235,26 +236,31 @@ class SeedController extends Controller
         ]);
         $record->insert();
         $coef = $seed->getCoefArray();
-        $coef_item = [
-            intval($upcoe),
-            intval($downcoe),
-            0,
-        ];
+        $coef_item = $coef[0]; //复制栈顶
+        $old_duration = $coef[0][2] - time();
+        if ($duration == 0) {
+            $replace = true;
+        } else {
+            if ($old_duration < $duration) {
+                $replace = true;
+            }
+        }
+
+        if ($upcoe >= 0) {
+            $coef_item[0] = $upcoe;
+        }
+        if ($downcoe >= 0) {
+            $coef_item[1] = $downcoe;
+        }
+        $coef_item[2] = $duration;
 
         //如果是永久有效，就直接替换栈顶的条目
-        if ($duration != 0) {
-            $coef_item[2] = intval($duration) + time();
-            $old_duration = $coef[0][2] - time();
-            //以前的持续时间比这个短，就直接把以前的替换掉
-            if ($old_duration < $duration) {
-                $coef[0] = $coef_item;
-            } else {
-                array_unshift($coef, $coef_item);
-            }
-        } else {
-            $coef_item[2] = 0;
+        if ($replace) {
             $coef[0] = $coef_item;
+        } else {
+            array_unshift($coef, $coef_item);
         }
+
         $seed->setCoefArray($coef);
         $seed->save();
         $tmp = $seed->attributes;
@@ -286,5 +292,10 @@ class SeedController extends Controller
         }
         Yii::info($res);
         return $res;
+    }
+
+    public function actionFileInfo($seed_id)
+    {
+
     }
 }
