@@ -61,6 +61,8 @@ class SeedController extends Controller
             $response['result'] = $retval;
             if ($retval == 'succeed') {
                 $response['extra'] = $res->attributes;
+            } elseif ($retval == 'exists') {
+                $response['extra'] = $res->seed_id;
             } else {
                 $response['extra'] = $seedModel->errors;
             }
@@ -259,7 +261,7 @@ class SeedController extends Controller
         if ($downcoe >= 0) {
             $coef_item[1] = $downcoe;
         }
-        $coef_item[2] = $duration;
+        $coef_item[2] = $duration + time();
 
         //如果是永久有效，就直接替换栈顶的条目
         if ($replace) {
