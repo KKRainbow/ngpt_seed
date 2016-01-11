@@ -27,7 +27,7 @@ class QuerySeedInfoForm extends Model
             ['query_json', 'required'] ,
         ];
     }
-    public function getResult()
+    public function getSeedInfos()
     {
         $arr = json_decode($this->query_json, true);
         if (empty($arr)) {

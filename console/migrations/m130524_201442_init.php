@@ -27,6 +27,9 @@ CREATE TABLE IF NOT EXISTS {{%user}} (
     stat_down 			bigint NOT NULL DEFAULT 0,
     real_up 			bigint NOT NULL DEFAULT 0,
     real_down 			bigint NOT NULL DEFAULT 0,
+    extra_up_coef       smallint NOT NULL DEFAULT 100,
+    extra_down_coef     smallint NOT NULL DEFAULT 100,
+    extra_coef_expire   int NOT NULL DEFAULT 0,
     is_valid 			boolean NOT NULL DEFAULT true,
     create_time			timestamp NOT NULL DEFAULT now(),
     update_time 		timestamp NOT NULL DEFAULT now()
@@ -97,17 +100,43 @@ SQL;
 
 //========================================================================
 
-        $sql_create_table_peer = array();
+        $sql_create_table_peer_lifecycle = array();
 
-        $sql_create_table_peer[] = <<<SQL
+        $sql_create_table_peer_lifecycle[] = <<<SQL
 CREATE TYPE peer_type AS ENUM ('Seeder','Leecher');
 SQL;
+
+        $sql_create_table_peer_lifecycle[] = <<<SQL
+CREATE TABLE IF NOT EXISTS {{%peer_lifecycle}} (
+    record_id  			BIGSERIAL NOT NULL PRIMARY KEY,
+    user_id 			int NOT NULL REFERENCES {{%user}}(user_id),
+    seed_id				int NOT NULL REFERENCES {{%seed}}(seed_id),
+    ipv4		        inet,
+    ipv6                inet,
+    status              peer_type NOT NULL,
+    client_tag			varchar(60),
+    begin_time			timestamp NOT NULL DEFAULT now(),
+    end_time			timestamp NOT NULL DEFAULT now()
+);
+SQL;
+        $sql_create_table_peer_lifecycle[] = <<<SQL
+CREATE INDEX idx_peer_lifecycle_id ON {{%peer_lifecycle}}(user_id);
+SQL;
+        $sql_create_table_peer_lifecycle[] = <<<SQL
+CREATE INDEX idx_peer_lifecycle_seed_id ON {{%peer_lifecycle}}(seed_id);
+SQL;
+        array_map($execute_sql, $sql_create_table_peer_lifecycle);
+
+//========================================================================
+
+        $sql_create_table_peer = array();
 
         $sql_create_table_peer[] = <<<SQL
 CREATE TABLE IF NOT EXISTS {{%peer}} (
     peer_id 			SERIAL PRIMARY KEY,
     user_id				int NOT NULL REFERENCES {{%user}}(user_id),
     seed_id				int NOT NULL REFERENCES {{%seed}}(seed_id),
+    lifecycle_id        bigint REFERENCES{{%peer_lifecycle}}(record_id),
     real_up 			bigint NOT NULL DEFAULT 0,
     real_down 			bigint NOT NULL DEFAULT 0,
     ipv4_addr			varchar(17),
@@ -146,29 +175,28 @@ SQL;
 
 //========================================================================
 
-        $sql_create_table_user_peer_event = array();
-        $sql_create_table_user_peer_event[] = <<<SQL
-CREATE TYPE event_type AS ENUM ('Start','Stop', 'Complete');
+        $sql_create_table_seed_event = array();
+
+        $sql_create_table_seed_event[] = <<<SQL
+CREATE TYPE seed_event_type AS ENUM ('Downloaded','Completed');
 SQL;
-        $sql_create_table_user_peer_event[] = <<<SQL
-CREATE TABLE IF NOT EXISTS {{%user_peer_event}} (
-    event_id  			BIGSERIAL NOT NULL PRIMARY KEY,
-    user_id 			int NOT NULL REFERENCES {{%user}}(user_id),
+
+        $sql_create_table_seed_event[] = <<<SQL
+CREATE TABLE IF NOT EXISTS {{%seed_event}} (
+    record_id  			BIGSERIAL NOT NULL PRIMARY KEY,
     seed_id				int NOT NULL REFERENCES {{%seed}}(seed_id),
-    event_type          event_type NOT NULL,
-    ipv4		        inet,
-    ipv6                inet,
-    status              peer_type NOT NULL,
-    create_time			timestamp NOT NULL DEFAULT now(),
+    user_id				int NOT NULL REFERENCES {{%user}}(user_id),
+    event_type          seed_event_type NOT NULL,
+    create_time			timestamp NOT NULL DEFAULT now()
 );
 SQL;
-        $sql_create_table_user_peer_event[] = <<<SQL
-CREATE INDEX idx_usevent_user_id ON {{%user_peer_event}}(user_id);
+        $sql_create_table_seed_event[] = <<<SQL
+CREATE INDEX idx_seed_event_user_id ON {{%seed_event}}(user_id);
 SQL;
-        $sql_create_table_user_peer_event[] = <<<SQL
-CREATE INDEX idx_usevent_seed_id ON {{%user_peer_event}}(seed_id);
+        $sql_create_table_seed_event[] = <<<SQL
+CREATE INDEX idx_seed_event_seed_id ON {{%seed_event}}(seed_id);
 SQL;
-        array_map($execute_sql, $sql_create_table_user_peer_event);
+        array_map($execute_sql, $sql_create_table_seed_event);
 
 //========================================================================
 
@@ -184,16 +212,20 @@ DECLARE
   down_res BIGINT := 0;
   up_coef integer := 1;
   down_coef integer := 1;
+  extra_up_coef integer := 1;
+  extra_down_coef integer := 1;
   stat_up_diff BIGINT := 0;
   stat_down_diff BIGINT := 0;
   live_time_diff INT :=0;
 BEGIN
   SELECT coefs_stack[1][1],coefs_stack[1][2] INTO
-    up_coef,down_coef FROM seed WHERE seed_id=NEW.seed_id;
-  IF NOT EXISTS( SELECT * FROM history WHERE
+    up_coef,down_coef FROM {{%seed}} WHERE seed_id=NEW.seed_id;
+  SELECT {{%user}}.extra_up_coef,{{%user}}.extra_down_coef INTO
+    extra_up_coef,extra_down_coef FROM {{%user}} WHERE user_id=NEW.user_id;
+  IF NOT EXISTS( SELECT * FROM {{%history}} WHERE
     seed_id=NEW.seed_id AND user_id=NEW.user_id AND record_date='today')
   THEN
-    INSERT INTO history(user_id,seed_id) VALUES(NEW.user_id,NEW.seed_id);
+    INSERT INTO {{%history}}(user_id,seed_id) VALUES(NEW.user_id,NEW.seed_id);
   END IF;
   SELECT NEW.real_up-OLD.real_up,NEW.real_down-OLD.real_down INTO up_diff,down_diff;
   IF up_diff<0
@@ -208,24 +240,24 @@ BEGIN
   THEN
     live_time_diff := cast(extract(EPOCH from NEW.update_time-OLD.update_time) as INTEGER);
   END IF;
-  SELECT (up_diff*up_coef)/100,(down_diff*down_coef)/100
+  SELECT (up_diff*up_coef*extra_up_coef)/10000,(down_diff*down_coef*extra_down_coef)/10000
   INTO stat_up_diff,stat_down_diff;
   --开始更新所有有关的信息了
-  UPDATE "history" SET
+  UPDATE {{%history}} SET
     real_up=real_up+up_diff,
     real_down=real_down+down_diff,
     stat_up=stat_up+stat_up_diff,
     stat_down=stat_down+stat_down_diff
   WHERE
     seed_id=NEW.seed_id AND user_id=NEW.user_id AND record_date='today';
-  UPDATE "user" SET
+  UPDATE {{%user}} SET
     real_up=real_up+up_diff,
     real_down=real_down+down_diff,
     stat_up=stat_up+stat_up_diff,
     stat_down=stat_down+stat_down_diff
   WHERE
     user_id=NEW.user_id;
-  UPDATE "seed" SET
+  UPDATE {{%seed}} SET
     traffic_up=traffic_up+up_diff,
     traffic_down=traffic_down+down_diff,
     live_time=live_time+live_time_diff
@@ -234,7 +266,7 @@ BEGIN
 
   IF NEW.status='Seeder'
   THEN
-      UPDATE "seed" SET
+      UPDATE {{%seed}} SET
         last_active_time=now()
       WHERE
         seed_id=NEW.seed_id;
@@ -256,11 +288,11 @@ DECLARE
 BEGIN
   case OLD.status
     WHEN 'Seeder' THEN
-    UPDATE "seed" SET seeder_count=seeder_count-1;
+    UPDATE {{%seed}} SET seeder_count=seeder_count-1 WHERE seed_id=OLD.seed_id;
     WHEN 'Leecher' THEN
-    UPDATE "seed" SET leecher_count=leecher_count-1;
+    UPDATE {{%seed}} SET leecher_count=leecher_count-1 WHERE seed_id=OLD.seed_id;
   END CASE;
-  INSERT INTO
+  UPDATE {{%peer_lifecycle}} set end_time=now() WHERE record_id=OLD.lifecycle_id;
   RETURN NULL;
 END;
 $$
@@ -276,17 +308,25 @@ DECLARE
 BEGIN
   case OLD.status
     WHEN 'Seeder' THEN
-    UPDATE "seed" SET seeder_count=seeder_count-1;
+    UPDATE {{%seed}} SET seeder_count=seeder_count-1 WHERE seed_id=NEW.seed_id;
     WHEN 'Leecher' THEN
-    UPDATE "seed" SET leecher_count=leecher_count-1;
+    UPDATE {{%seed}} SET leecher_count=leecher_count-1 WHERE seed_id=NEW.seed_id;
   END CASE;
   case NEW.status
     WHEN 'Seeder' THEN
-    UPDATE "seed" SET seeder_count=seeder_count+1;
+    UPDATE {{%seed}} SET seeder_count=seeder_count+1 WHERE seed_id=NEW.seed_id;
     WHEN 'Leecher' THEN
-    UPDATE "seed" SET leecher_count=leecher_count+1;
+    UPDATE {{%seed}} SET leecher_count=leecher_count+1 WHERE seed_id=NEW.seed_id;
   END CASE;
-  RETURN NULL;
+  IF NEW.status != OLD.status
+  THEN
+      UPDATE {{%peer_lifecycle}} SET end_time=now() WHERE record_id=OLD.lifecycle_id;
+      INSERT INTO {{%peer_lifecycle}}(user_id,seed_id,ipv4,ipv6,status,client_tag)
+        VALUES(NEW.user_id,NEW.seed_id,cast(NEW.ipv4_addr as inet),
+        cast(NEW.ipv6_addr as inet),NEW.status,NEW.client_tag);
+      NEW.lifecycle_id = currval('peer_lifecycle_record_id_seq');
+  END IF;
+  RETURN NEW;
 END;
 $$
 LANGUAGE plpgsql;
@@ -301,39 +341,44 @@ DECLARE
 BEGIN
   case NEW.status
     WHEN 'Seeder' THEN
-    UPDATE "seed" SET seeder_count=seeder_count+1;
+    UPDATE {{%seed}} SET seeder_count=seeder_count+1 WHERE seed_id=NEW.seed_id;
     WHEN 'Leecher' THEN
-    UPDATE "seed" SET leecher_count=leecher_count+1;
+    UPDATE {{%seed}} SET leecher_count=leecher_count+1 WHERE seed_id=NEW.seed_id;
   END CASE;
-  RETURN NULL;
+  INSERT INTO {{%peer_lifecycle}}(user_id,seed_id,ipv4,ipv6,status,client_tag)
+    VALUES(NEW.user_id,NEW.seed_id,cast(NEW.ipv4_addr as inet),
+    cast(NEW.ipv6_addr as inet),NEW.status,NEW.client_tag);
+  NEW.lifecycle_id = currval('peer_lifecycle_record_id_seq');
+  RETURN NEW;
 END;
 $$
 LANGUAGE plpgsql;
 SQL;
         $create_trigger_peer_update[] = <<<SQL
 CREATE TRIGGER after_peer_statistic_change_trigger_name
-AFTER UPDATE ON peer
+AFTER UPDATE ON {{%peer}}
 FOR EACH ROW EXECUTE PROCEDURE after_peer_statistic_change_trigger();
 SQL;
 
         $create_trigger_peer_update[] = <<<SQL
 CREATE TRIGGER after_peer_status_change_trigger_name
-AFTER UPDATE ON peer
+BEFORE UPDATE ON {{%peer}}
 FOR EACH ROW EXECUTE PROCEDURE after_peer_status_change_trigger();
 SQL;
 
         $create_trigger_peer_update[] = <<<SQL
 CREATE TRIGGER after_peer_inserted_change_trigger_name
-AFTER INSERT ON peer
+BEFORE INSERT ON {{%peer}}
 FOR EACH ROW EXECUTE PROCEDURE after_peer_inserted_trigger();
 SQL;
 
         $create_trigger_peer_update[] = <<<SQL
 CREATE TRIGGER after_peer_deleted_change_trigger_name
-AFTER DELETE ON peer
+AFTER DELETE ON {{%peer}}
 FOR EACH ROW EXECUTE PROCEDURE after_peer_deleted_trigger();
 SQL;
         array_map($execute_sql, $create_trigger_peer_update);
+        //after触发器会忽略对NEW的修改。所以需要两个BEFORE
 
 //========================================================================
 
@@ -341,8 +386,9 @@ SQL;
 
     public function down()
     {
-        $this->dropTable('{{%user_peer_event}}');
+        $this->dropTable('{{%seed_event}}');
         $this->dropTable('{{%peer}}');
+        $this->dropTable('{{%peer_lifecycle}}');
         $this->dropTable('{{%history}}');
         $this->dropTable('{{%seed_operation_record}}');
         $this->dropTable('{{%seed}}');
@@ -350,10 +396,11 @@ SQL;
         $sqls = [
             "DROP TYPE IF EXISTS peer_type;",
             "DROP TYPE IF EXISTS user_priv;",
-            "DROP TRIGGER IF EXISTS after_peer_statistic_change_trigger_name ON peer;",
-            "DROP TRIGGER IF EXISTS after_peer_status_change_trigger_name ON peer;",
-            "DROP TRIGGER IF EXISTS after_peer_inserted_change_trigger_name ON peer;",
-            "DROP TRIGGER IF EXISTS after_peer_deleted_change_trigger_name ON peer;",
+            "DROP TYPE IF EXISTS seed_event_type;",
+            "DROP TRIGGER IF EXISTS after_peer_statistic_change_trigger_name ON {{%peer}};",
+            "DROP TRIGGER IF EXISTS after_peer_status_change_trigger_name ON {{%peer}};",
+            "DROP TRIGGER IF EXISTS after_peer_inserted_change_trigger_name ON {{%peer}};",
+            "DROP TRIGGER IF EXISTS after_peer_deleted_change_trigger_name ON {{%peer}};",
             "DROP FUNCTION IF EXISTS public.after_peer_deleted_trigger();",
             "DROP FUNCTION IF EXISTS public.after_peer_inserted_trigger();",
             "DROP FUNCTION IF EXISTS public.after_peer_statistic_change_trigger();",

@@ -8,9 +8,11 @@
 
 namespace frontend\controllers;
 
-use common\library\MetaInfoProcessor;
+use common\library\TorrentFileList;
 use common\library\TorrentFileTool;
 use frontend\models\History;
+use frontend\models\Peer;
+use frontend\models\SeedEvent;
 use frontend\models\SeedOperationRecord;
 use frontend\models\SeedOperationRecordQuery;
 use frontend\models\SeedSearchForm;
@@ -74,7 +76,7 @@ class SeedController extends Controller
     {
         $model = new QuerySeedInfoForm();
         $model->attributes = Yii::$app->request->post();
-        $ret = $model->getResult();
+        $ret = $model->getSeedInfos();
         $result = [];
         if (empty($ret)) {
             $result['result'] = 'failed';
@@ -114,6 +116,11 @@ class SeedController extends Controller
             $main_tracker,
             $secondary_tracker
         );
+        $event = new SeedEvent();
+        $event->seed_id = $seed_id;
+        $event->user_id = Yii::$app->user->identity->getId();
+        $event->event_type = 'Downloaded';
+        $event->insert();
         return Yii::$app->response->sendContentAsFile(
             $torrent,
             $seed['torrent_name'] . '.torrent'
@@ -167,7 +174,7 @@ class SeedController extends Controller
         $record->insert();
         $seed->is_valid = false;
         $seed->save();
-        $publisher->stat_up -= $penalty;
+        $publisher->stat_up -= intval($penalty) * (1<<30);
         $publisher->save();
         $tmp = $seed->attributes;
         $tmp['discuz_pub_uid'] = $publisher->discuz_user_id;
@@ -294,8 +301,66 @@ class SeedController extends Controller
         return $res;
     }
 
-    public function actionFileInfo($seed_id)
+    public function actionFileList($seed_id)
     {
+        /** @var Seed $seed */
+        $seed = Seed::findOne($seed_id);
+        if (empty($seed)) {
+            return [
+                'result' => 'failed',
+                'extra' => 'no such seed',
+            ];
+        }
+        $json = TorrentFileList::getFileListJson(
+            UploadedSeedFile::getTorrentFilePath($seed->info_hash)
+        );
 
+        if (empty($json)) {
+            return [
+                'result' => 'failed',
+                'extra' => 'decode error',
+            ];
+        } else {
+            return [
+                'result' => 'succeed',
+                'extra' => $json,
+            ];
+        }
+    }
+
+    public function actionPeerInfo($seed_id)
+    {
+        /** @var Seed $seed */
+        $seed = Seed::findOne($seed_id);
+        if (empty($seed)) {
+            return [
+                'result' => 'failed',
+                'extra' => 'no such seed',
+            ];
+        }
+
+        $peers = $seed->peers;
+        $leechers = [];
+        $seeders = [];
+        $all = [];
+        foreach ($peers as $peer) {
+            $peer->update_time =  strtotime($peer->update_time);
+            $peer->create_time =  strtotime($peer->create_time);
+
+            if ($peer->status == 'Seeder') {
+                $seeders[] = $peer->attributes;
+            } else {
+                $leechers[] = $peer->attributes;
+            }
+            $all[] = $peer->attributes;
+        }
+        return [
+            'result' => 'succeed',
+            'extra' => [
+                'all' => $all,
+                'leechers' => $leechers,
+                'seeders' => $seeders,
+            ],
+        ];
     }
 }

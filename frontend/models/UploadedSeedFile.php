@@ -33,6 +33,11 @@ class UploadedSeedFile extends Model
      */
     private $proc_obj;
 
+    public static function getTorrentFilePath($infoHash)
+    {
+        return "torrents/" . $infoHash . ".info";
+    }
+
     public function getSubject()
     {
         return $this->proc_obj->generateSubject();
@@ -123,7 +128,7 @@ class UploadedSeedFile extends Model
         }
 
         file_put_contents(
-            "torrents/" . $obj->getInfoHash() . ".info",
+            $this->getTorrentFilePath($obj->getInfoHash()),
             $obj->getInfoEncoded()
         );
 

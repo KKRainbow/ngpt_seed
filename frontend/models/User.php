@@ -20,6 +20,9 @@ use yii\web\IdentityInterface;
  * @property integer $stat_down
  * @property integer $real_up
  * @property integer $real_down
+ * @property integer $extra_up_coef
+ * @property integer $extra_down_coef
+ * @property string $extra_coef_expire
  * @property boolean $is_valid
  * @property string $create_time
  * @property string $update_time
@@ -45,10 +48,16 @@ class User extends ActiveRecordTS implements IdentityInterface
     {
         return [
             [['discuz_user_id', 'passkey'], 'required'],
-            [['discuz_user_id', 'stat_up', 'stat_down', 'real_up', 'real_down'], 'integer'],
+            [
+                [
+                    'discuz_user_id', 'stat_up', 'stat_down', 'real_up', 'real_down',
+                    'extra_up_coef', 'extra_down_coef',
+                ],
+                'integer'
+            ],
             [['priv'], 'string'],
             [['is_valid'], 'boolean'],
-            [['create_time', 'update_time'], 'safe'],
+            [['create_time', 'update_time','extra_coef_expire'], 'safe'],
             [['passkey'], 'string', 'max' => 32],
             [['discuz_user_id'], 'unique']
         ];
@@ -71,6 +80,9 @@ class User extends ActiveRecordTS implements IdentityInterface
             'is_valid' => 'Is Valid',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
+            'extra_up_coef' => 'Extra Up Coef',
+            'extra_down_coef' => 'Extra Down Coef',
+            'extra_coef_expire' => 'Extra Coef Expire Time',
         ];
     }
 
@@ -171,5 +183,50 @@ class User extends ActiveRecordTS implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return false;
+    }
+
+    public static function genPasskey()
+    {
+        return strtoupper(md5(time() . rand(1, 10000) . microtime()));
+    }
+
+    private function getPeerStat()
+    {
+        $peers = $this->peers;
+        $seeder = 0;
+        $leecher = 0;
+        //正在下载/做种的种子
+        $seed_up = [];
+        $seed_down = [];
+        foreach ($peers as $p) {
+            if ($p->status == 'Seeder') {
+                $seeder++;
+                $seed_up[$p->seed_id] = 1;
+            } else {
+                $leecher++;
+                $seed_down[$p->seed_id] = 1;
+            }
+        }
+        $ret['seeder_count'] = $seeder;
+        $ret['leecher_count'] = $leecher;
+        $ret['seed_up_count'] = count(array_keys($seed_up));
+        $ret['seed_down_count'] = count(array_keys($seed_down));
+        Yii::info($ret);
+        return $ret;
+    }
+
+    public function getInfo($detail = false)
+    {
+        $ret = $this->attributes;
+        Yii::info($detail);
+        if ($detail) {
+            $ret = array_merge($ret, $this->getPeerStat());
+            $res = SeedEvent::getUserCounter($this->user_id);
+            $ret['downloaded_count'] = $res['downloaded_count'] != null ?: 0;
+            $ret['completed_count'] = $res['completed_count'] !=null ?: 0;
+
+            $ret['published_seed'] = count($this->publishedSeed);
+        }
+        return $ret;
     }
 }

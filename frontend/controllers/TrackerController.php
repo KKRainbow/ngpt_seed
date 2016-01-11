@@ -10,6 +10,8 @@ namespace frontend\controllers;
 
 use frontend\models\Peer;
 use frontend\models\Seed;
+use frontend\models\SeedCompleted;
+use frontend\models\SeedEvent;
 use Yii;
 use yii\filters\auth\QueryParamAuth;
 use yii\web\Controller;
@@ -52,6 +54,11 @@ class TrackerController extends Controller
                     $peer->delete();
                     break;
                 case 'completed':
+                    $event = new SeedEvent();
+                    $event->seed_id = $form->seed->seed_id;
+                    $event->user_id = Yii::$app->user->identity->getId();
+                    $event->event_type = 'Completed';
+                    $event->insert();
                     $form->seed->completed_count++;
                     $form->seed->save();
                     break;
