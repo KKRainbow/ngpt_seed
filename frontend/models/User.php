@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use app\models\UserQuery;
+use frontend\models\UserQuery;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use common\models\ActiveRecordTS;

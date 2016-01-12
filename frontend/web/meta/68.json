@@ -1,0 +1,167 @@
+{
+  "none":{
+    "name_prefix":"software",
+    "form" :
+    [
+      {
+        "title": "种子文件",
+        "type": "file",
+        "accept": "application/x-bittorrent",
+        "name": "torrent",
+        "optional": false
+      },
+      {
+        "title": "中文名",
+        "type": "text",
+        "optional": false,
+        "name": "cname",
+        "width": "200px",
+        "regex": "",
+        "comment":"若无中文名称,可以填写公认的英文"
+      },
+      {
+        "title": "英文名",
+        "type": "text",
+        "optional": false,
+        "name": "ename",
+        "width": "200px",
+        "regex": "",
+        "comment": "包括版本号"
+      },
+      {
+        "title": "软件平台",
+        "type": "select",
+        "user_defined": true,
+        "optional": false,
+        "name": "platform",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "Win": "Win",
+              "Linux": "Linux",
+              "Mac": "Mac",
+              "iOS": "iOS",
+              "Android": "Android",
+              "Mobile": "Mobile"
+            }
+          }
+        ]
+      },
+      {
+        "title": "软件类型",
+        "type": "radios",
+        "optional": false,
+        "user_defined": false,
+        "name": "type",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "操作系统": "操作系统",
+              "行业软件": "行业软件",
+              "专属软件": "专属软件",
+              "自由软件": "自由软件",
+              "共享软件": "共享软件",
+              "免费软件": "免费软件",
+              "公共软件": "公共软件"
+            }
+          }
+        ]
+      },
+      {
+        "title": "软件语言",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "language",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "简体中文": "简体中文",
+              "繁体中文": "繁体中文",
+              "英文": "英文",
+              "多国语言": "多国语言"
+            }
+          }
+        ]
+      },
+      {
+        "title": "安装包信息",
+        "type": "select",
+        "optional": false,
+        "user_defined": true,
+        "name": "installinfo",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "EXE": "EXE",
+              "MSI": "MSI",
+              "ZIP": "ZIP",
+              "RAR": "RAR",
+              "7Z": "7Z",
+              "DEB": "DEB",
+              "DMG": "DMG",
+              "APK": "APK",
+              "IPA": "IPA",
+              "TAR": "TAR",
+              "NDZ": "NDZ",
+              "RUN": "RUN",
+              "BIN": "BIN",
+              "ISO": "ISO",
+              "IPSW": "IPSW"
+            }
+          }
+        ]
+      },
+      {
+        "title": "架构",
+        "type": "select",
+        "optional": true,
+        "user_defined": true,
+        "name": "arch",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "X86": "X86",
+              "X64": "X64",
+              "ARM": "ARM"
+            }
+          }
+        ]
+      },
+      {
+        "title": "破解方式",
+        "type": "select",
+        "optional": true,
+        "user_defined": true,
+        "name": "crack",
+        "optiongroup": [
+          {
+            "related": false,
+            "options": {
+              "TBE": "TBE",
+              "lic": "lic",
+              "破解版": "破解版",
+              "绿色版": "绿色版"
+            }
+          }
+        ]
+      }
+    ],
+    "subject" :
+    [
+      "platform",
+      "cname",
+      "ename",
+      "language",
+      "type",
+      "installinfo",
+      "arch",
+      "crack"
+    ]
+  }
+}
