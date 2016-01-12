@@ -303,4 +303,10 @@ SQL;
         return;
 
     }
+
+    public function actionTestMysql()
+    {
+        $res = $this->fdb->createCommand("SELECT * FROM ngpt_ngpt_users LIMIT 20;")->queryAll();
+        var_dump($res);
+    }
 }

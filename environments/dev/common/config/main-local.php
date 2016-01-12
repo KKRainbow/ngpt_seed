@@ -1,11 +1,18 @@
 <?php
+
+$dbhost = getenv('PGSQL_HOST') ?: 'localhost';
+$dbport = getenv('PGSQL_PORT') ?: '5432';
+$dbname = getenv('PGSQL_DBNAME');
+$dbuser = getenv('PGSQL_DBUSER') ?: 'postgres';
+$dbpass = getenv('PGSQL_DBPASSWORD');
+
 return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'pgsql:host=localhost;port=5432;dbname=ngpt',
-            'username' => 'postgres',
-            'password' => '',
+            'dsn' => "pgsql:host={$dbhost};port={$dbport};dbname={$dbname}",
+            'username' => $dbuser,
+            'password' => $dbpass,
             'charset' => 'utf8',
         ],
         'mailer' => [
