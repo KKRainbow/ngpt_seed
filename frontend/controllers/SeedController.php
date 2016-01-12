@@ -96,7 +96,7 @@ class SeedController extends Controller
         if (empty($seed)) {
             return [
                 'result' => 'failed',
-                'reason' => 'no such seed',
+                'extra' => 'no such seed',
             ];
         }
 
@@ -151,7 +151,7 @@ class SeedController extends Controller
         if ($user->priv != 'Admin') {
             return [
                 'result' => 'failed',
-                'reason' => 'permission denied'
+                'extra' => 'permission denied'
             ];
         }
         /** @var Seed $seed */
@@ -159,7 +159,7 @@ class SeedController extends Controller
         if (empty($seed) || !$seed->is_valid) {
             return [
                 'result' => 'failed',
-                'reason' => 'not exists'
+                'extra' => 'not exists'
             ];
         }
         $ret['result'] = 'success';
@@ -213,20 +213,20 @@ class SeedController extends Controller
         $ret['result'] = 'failed';
         if (!is_numeric($upcoe) || !is_numeric($downcoe) ||
             !is_numeric($duration) || !is_numeric($seed_id)) {
-            $ret['reason'] = 'permission denied';
+            $ret['extra'] = 'permission denied';
             return $ret;
         }
         /** @var User $user */
         $user = User::findOne(Yii::$app->user->identity->getId());
         if ($user->priv != 'Admin') {
-            $ret['reason'] = 'permission denied';
+            $ret['extra'] = 'permission denied';
             return $ret;
         }
 
         /** @var Seed $seed */
         $seed = Seed::findOne($seed_id);
         if (empty($seed) || !$seed->is_valid) {
-            $ret['reason'] = 'not exists';
+            $ret['extra'] = 'not exists';
             return $ret;
         }
 

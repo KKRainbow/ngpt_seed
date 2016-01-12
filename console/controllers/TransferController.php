@@ -36,8 +36,8 @@ class TransferController extends Controller
     {
         $this->actionUser();
         $this->actionSeed();
-        $this->actionHistory();
         $this->actionOperation();
+        $this->actionHistory();
     }
 
     public function actionUser()
@@ -50,7 +50,9 @@ class TransferController extends Controller
         QUERY:
 
         $sql = <<<SQL
-SELECT * FROM ngpt_ngpt_users LIMIT $limit OFFSET $offset;
+SELECT u.*,m.adminid FROM ngpt_ngpt_users u
+LEFT JOIN ngpt_common_member m ON u.uid=m.uid
+LIMIT $limit OFFSET $offset;
 SQL;
         $res = $this->fdb->createCommand($sql)->queryAll();
 
@@ -63,6 +65,9 @@ SQL;
             $user->is_valid = $ouser['candownload'] == '1';
             $user->passkey = $ouser['passkey'];
             $user->discuz_user_id = $ouser['uid'];
+            if ($ouser['adminid'] != 0) {
+                $user->priv = 'Admin';
+            }
             var_dump($ouser);
             if (!$user->insert()) {
                 var_dump($user->errors);
@@ -256,11 +261,12 @@ SQL;
         $limit = 1000;
         QUERY:
         $sql = <<<SQL
-        SELECT * FROM `ngpt_ngpt_history` LIMIT $limit OFFSET $offset;
+        SELECT * FROM `ngpt_ngpt_seed_op_records` LIMIT $limit OFFSET $offset;
 SQL;
         $res = $this->fdb->createCommand($sql)->queryAll();
 
         foreach ($res as $oop) {
+            var_dump($oop);
             $op = new SeedOperationRecord();
 
             /** @var User $admin */

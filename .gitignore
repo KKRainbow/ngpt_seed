@@ -32,3 +32,6 @@ phpunit.phar
 *.lock
 torrents
 *.log
+*-local.php
+index.php
+index-test.php
