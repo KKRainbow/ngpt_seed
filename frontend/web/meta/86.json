@@ -12,7 +12,7 @@
       {
         "title": "游戏类型",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "type",
         "width":"200px",
@@ -73,7 +73,7 @@
       {
         "title": "视频格式",
         "type": "select",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "format",
         "width":"200px",
@@ -91,7 +91,7 @@
       {
         "title": "字幕",
         "type": "select",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "subtitle",
         "width":"200px",

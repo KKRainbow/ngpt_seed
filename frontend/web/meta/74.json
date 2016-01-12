@@ -14,7 +14,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {

@@ -52,7 +52,7 @@
         "title": "软件类型",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "type",
         "optiongroup": [
           {

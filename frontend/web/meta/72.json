@@ -136,7 +136,7 @@
         "title": "媒介",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "medium",
         "optiongroup": [
           {

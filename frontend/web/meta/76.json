@@ -29,7 +29,7 @@
       {
         "title": "类别",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "category",
         "optiongroup": [

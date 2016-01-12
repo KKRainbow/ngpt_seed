@@ -29,7 +29,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {
@@ -47,7 +47,7 @@
         "title": "内容类别",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "content_type",
         "optiongroup": [
           {
@@ -66,7 +66,7 @@
         "title": "来源类别",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "source_type",
         "optiongroup": [
           {
@@ -91,7 +91,7 @@
         "title": "视频编码",
         "type": "select",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "content_encoding",
         "optiongroup": [
           {
@@ -111,9 +111,9 @@
         "title": "片源",
         "type": "select",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "source",
-        "width" : "300px",
+        "width" : "200px",
         "optiongroup": [
           {
             "related": false,
@@ -136,7 +136,7 @@
         "title": "字幕",
         "type": "select",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "subtitle",
         "optiongroup": [
           {
@@ -209,7 +209,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {
@@ -271,7 +271,7 @@
         "title": "专辑类别",
         "type": "select",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "album_type",
         "optiongroup": [
           {
@@ -346,7 +346,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {
@@ -471,7 +471,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {
@@ -596,7 +596,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {
@@ -721,7 +721,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {
@@ -850,7 +850,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {
@@ -979,7 +979,7 @@
         "title": "地区",
         "type": "radios",
         "optional": false,
-        "user_defined": false,
+        "user_defined": true,
         "name": "region",
         "optiongroup": [
           {

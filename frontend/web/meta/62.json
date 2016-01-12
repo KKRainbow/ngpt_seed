@@ -12,7 +12,7 @@
       {
         "title": "平台",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "platform",
         "width":"200px",
@@ -36,7 +36,7 @@
       {
         "title": "游戏类型",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "type",
         "width":"200px",
@@ -107,7 +107,7 @@
       {
         "title": "数据格式",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "format",
         "width":"200px",
@@ -172,7 +172,7 @@
       {
         "title": "平台",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "platform",
         "width":"200px",
@@ -196,7 +196,7 @@
       {
         "title": "游戏类型",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "type",
         "width":"200px",
@@ -267,7 +267,7 @@
       {
         "title": "数据格式",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "format",
         "width":"200px",
@@ -341,7 +341,7 @@
       {
         "title": "平台",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "platform",
         "width":"200px",
@@ -365,7 +365,7 @@
       {
         "title": "游戏类型",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "type",
         "width":"200px",
@@ -436,7 +436,7 @@
       {
         "title": "数据格式",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "format",
         "width":"200px",

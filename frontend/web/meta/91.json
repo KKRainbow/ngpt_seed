@@ -13,7 +13,7 @@
       {
         "title": "地区",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "region",
         "optiongroup": [
@@ -47,7 +47,7 @@
       {
         "title": "文件格式",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "format",
         "optiongroup": [
@@ -67,7 +67,7 @@
       {
         "title": "平台",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "platform",
         "optiongroup": [
@@ -92,7 +92,7 @@
       {
         "title": "类型",
         "type": "radios",
-        "user_defined": false,
+        "user_defined": true,
         "optional": false,
         "name": "type",
         "optiongroup": [
