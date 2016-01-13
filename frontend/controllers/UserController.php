@@ -42,7 +42,6 @@ class UserController extends Controller
         /** @var User $user */
         $user = User::findOne(Yii::$app->user->identity->getId());
         $key = 'user_info' . $detail ? 'd' : 's' . $user->user_id;
-        Yii::$app->cache->delete($key);
         $info = Yii::$app->cache->get($key);
         if ($info === false) {
             $info = $user->getInfo(!!$detail);

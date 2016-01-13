@@ -218,15 +218,13 @@ class User extends ActiveRecordTS implements IdentityInterface
     public function getInfo($detail = false)
     {
         $ret = $this->attributes;
-        Yii::info($detail);
         if ($detail) {
             $ret = array_merge($ret, $this->getPeerStat());
             $res = SeedEvent::getUserCounter($this->user_id);
-            $ret['downloaded_count'] = $res['downloaded_count'] != null ?: 0;
-            $ret['completed_count'] = $res['completed_count'] !=null ?: 0;
-
+            $ret = array_merge($ret, $res);
             $ret['published_seed'] = count($this->publishedSeed);
         }
+        Yii::info($ret);
         return $ret;
     }
 }

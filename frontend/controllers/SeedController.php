@@ -125,7 +125,7 @@ class SeedController extends Controller
         $event->insert();
         return Yii::$app->response->sendContentAsFile(
             $torrent,
-            $seed['torrent_name'] . '.torrent'
+            '[NGPT]' . $seed['torrent_name'] . '.torrent'
         );
     }
 

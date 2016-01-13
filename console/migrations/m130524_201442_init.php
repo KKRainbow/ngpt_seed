@@ -143,6 +143,8 @@ CREATE TABLE IF NOT EXISTS {{%peer}} (
     ipv4_port			int,
     ipv6_addr			varchar(45),
     ipv6_port			int,
+    up_coef             smallint NOT NULL DEFAULT 100,
+    down_coef           smallint NOT NULL DEFAULT 100,
     client_tag			varchar(60),
     status				peer_type NOT NULL DEFAULT 'Seeder',
     create_time			timestamp NOT NULL DEFAULT now(),
@@ -212,6 +214,8 @@ DECLARE
   down_res BIGINT := 0;
   up_coef integer := 1;
   down_coef integer := 1;
+  peer_up_coef integer := 1;
+  peer_down_coef integer := 1;
   extra_up_coef integer := 1;
   extra_down_coef integer := 1;
   stat_up_diff BIGINT := 0;
@@ -222,6 +226,8 @@ BEGIN
     up_coef,down_coef FROM {{%seed}} WHERE seed_id=NEW.seed_id;
   SELECT {{%user}}.extra_up_coef,{{%user}}.extra_down_coef INTO
     extra_up_coef,extra_down_coef FROM {{%user}} WHERE user_id=NEW.user_id;
+  peer_up_coef := NEW.up_coef;
+  peer_down_coef := NEW.down_coef;
   IF NOT EXISTS( SELECT * FROM {{%history}} WHERE
     seed_id=NEW.seed_id AND user_id=NEW.user_id AND record_date='today')
   THEN
@@ -240,7 +246,11 @@ BEGIN
   THEN
     live_time_diff := cast(extract(EPOCH from NEW.update_time-OLD.update_time) as INTEGER);
   END IF;
-  SELECT (up_diff*up_coef*extra_up_coef)/10000,(down_diff*down_coef*extra_down_coef)/10000
+  SELECT (up_diff*up_coef)/100,(down_diff*down_coef)/100
+  INTO stat_up_diff,stat_down_diff;
+  SELECT (stat_up_diff*extra_up_coef)/100,(stat_down_diff*extra_down_coef)/100
+  INTO stat_up_diff,stat_down_diff;
+  SELECT (stat_up_diff*peer_up_coef)/100,(stat_down_diff*peer_down_coef)/100
   INTO stat_up_diff,stat_down_diff;
   --开始更新所有有关的信息了
   UPDATE {{%history}} SET

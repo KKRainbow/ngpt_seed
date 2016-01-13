@@ -80,6 +80,12 @@ SUM(CASE event_type WHEN 'Completed' THEN 1 ELSE 0 END) AS completed_count
 FROM  {$tbl} WHERE user_id=$user_id;
 SQL;
         $res = Yii::$app->db->createCommand($seed_count_sql)->queryOne();
+        if (empty($res['downloaded_count'])) {
+            $res['downloaded_count'] = 0;
+        }
+        if (empty($res['completed_count'])) {
+            $res['completed_count'] = 0;
+        }
         Yii::info($res);
         return $res;
     }
