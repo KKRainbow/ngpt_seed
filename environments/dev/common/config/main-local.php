@@ -6,6 +6,10 @@ $dbname = getenv('PGSQL_DBNAME');
 $dbuser = getenv('PGSQL_DBUSER') ?: 'postgres';
 $dbpass = getenv('PGSQL_DBPASSWORD');
 
+$rdhost = getenv('REDIS_HOST') ?: 'localhost';
+$rdport = getenv('REDIS_PORT') ?: '6379';
+$rdname = getenv('REDIS_DBNAME') ?: 0;
+
 return [
     'components' => [
         'db' => [
@@ -25,9 +29,9 @@ return [
         ],
         'redis' => [
             'class' => 'yii\redis\Connection',
-            'hostname' => 'localhost',
-            'port' => 6379,
-            'database' => 0,
+            'hostname' => $rdhost,
+            'port' => $rdport,
+            'database' => $rdname,
         ],
         'cache' => [
             'class' => 'yii\redis\Cache',
