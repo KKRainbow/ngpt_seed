@@ -357,6 +357,7 @@ class SeedController extends Controller
         foreach ($peers as $peer) {
             $peer->update_time =  strtotime($peer->update_time);
             $peer->create_time =  strtotime($peer->create_time);
+            $peer->client_tag = substr(base64_decode($peer->client_tag), 0, 3);
 
             if ($peer->status == 'Seeder') {
                 $seeders[] = $peer->attributes;

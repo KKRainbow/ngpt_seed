@@ -181,6 +181,9 @@ class QueryPeersForm extends Model
             ['peer_id', 'string', 'length' => [20, 20]],
             [['info_hash','passkey'], 'filter', 'filter' => 'strtoupper'],
             ['event', 'filter', 'filter' => 'strtolower'],
+            ['peer_id', function ($attr, $params) {
+                $this->$attr = base64_encode($this->$attr);
+            }],
             ['ipv6', function ($attr, $params) {
                 if (!empty($this->$attr)) {
                     self::rfc2732Convert($this->$attr, $ipv6, $port);
