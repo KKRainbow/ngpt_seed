@@ -160,7 +160,7 @@ class TorrentFileTool
     {
         $be = new BEncoder();
         $info = file_get_contents($infoPath);
-        $info = $be->decode($info, true);
+        $info = $be->decode($info);
         if (empty($info)) {
             return null;
         }
