@@ -100,17 +100,19 @@ class SeedController extends Controller
             ];
         }
 
-        $main_tracker = "http://127.0.0.1/seed/index.php?r=tracker/announce&";
+        $main_tracker = "http://10.254.36.2:8080/announce.php?";
         //鉴于announce_list实际上是扩展，经过实验，如果有announce_list，
         //announce就不再起作用，所以把main_tracker放到list的第一个
         $secondary_tracker = [
             $main_tracker,
-//            "http://10.254.36.2:9001/",
-//            "http://tracker1.bevip.xyz:8081/",
-//            "http://tracker2.bevip.xyz:8082/",
-//            "http://tracker3.bevip.xyz:8083/",
-//            "http://tracker4.bevip.xyz:8084/"
+            "http://10.254.36.2:9001/announce.php?",
+            "http://tracker1.bevip.xyz:8081/announce.php?",
+            "http://tracker2.bevip.xyz:8082/announce.php?",
+            "http://tracker3.bevip.xyz:8083/announce.php?",
+            "http://tracker4.bevip.xyz:8084/announce.php?"
         ];
+
+
         $info_path = getcwd() . "/torrents/" . $seed['info_hash'] . '.info';
 
         $torrent = TorrentFileTool::buildTorrentFile(
@@ -131,8 +133,15 @@ class SeedController extends Controller
 
     public function actionGetFormJson($fid)
     {
-        $ret['json'] = UploadedSeedFile::getMetaInfo($fid);
-        $ret['result'] = empty($ret['json']) ? 'failed' : 'succeed';
+        $cache = Yii::$app->cache;
+        $key = static::className() . 'Form;fid:' . $fid;
+        $ret = $cache->get($key);
+        if ($ret === false) {
+            $ret = [];
+            $ret['json'] = UploadedSeedFile::getMetaInfo($fid);
+            $ret['result'] = empty($ret['json']) ? 'failed' : 'succeed';
+            $cache->set($key, $ret, 120);
+        }
         return $ret;
     }
 

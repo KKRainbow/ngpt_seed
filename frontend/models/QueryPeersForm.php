@@ -128,8 +128,15 @@ class QueryPeersForm extends Model
         if (!$this->hasErrors()) {
             $this->ipv4 = $this->ip;
             $this->ipv4port = $this->port;
+            $ip = null;
             //尝试直接获取ip, 优先采用直接获得的ip
-            $ip = Yii::$app->request->userIP;
+            if (isset($_SERVER['x-forwarded-for'])) {
+                $ip = $_SERVER['x-forwarded-for'];
+            } elseif (isset($_SERVER['x-forwarded-for'])) {
+                $ip = $_SERVER['x-real-ip'];
+            } else {
+                $ip = Yii::$app->request->userIP;
+            }
             if (!empty($ip)) {
                 if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                     $this->ipv4 = $ip;

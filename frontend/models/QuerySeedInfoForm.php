@@ -21,12 +21,14 @@ class QuerySeedInfoForm extends Model
      * }
      */
     public $query_json;
+
     public function rules()
     {
         return [
-            ['query_json', 'required'] ,
+            ['query_json', 'required'],
         ];
     }
+
     public function getSeedInfos()
     {
         $arr = json_decode($this->query_json, true);
@@ -34,7 +36,9 @@ class QuerySeedInfoForm extends Model
             return false;
         }
         $ids = array_keys($arr);
-        $seedRes = Seed::findAll($ids);
+        $seedRes = Seed::getDb()->cache(function ($db) use (&$ids) {
+            return Seed::findAll($ids);
+        }, 60);
 
         $ret = [];
         foreach ($seedRes as $seed) {
