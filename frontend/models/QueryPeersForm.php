@@ -182,7 +182,7 @@ class QueryPeersForm extends Model
             [['port', 'left', 'uploaded', 'downloaded', 'numwant']
                 , 'integer'],
             ['info_hash', 'string', 'length' => [40, 40]],
-            ['peer_id', 'string', 'length' => [20, 20]],
+            ['peer_id', 'string', 'length' => [4, 30]],
             [['info_hash','passkey'], 'filter', 'filter' => 'strtoupper'],
             ['event', 'filter', 'filter' => 'strtolower'],
             ['ipv6', function ($attr, $params) {
