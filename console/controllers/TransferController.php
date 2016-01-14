@@ -9,6 +9,7 @@
 
 namespace console\controllers;
 
+use common\library\BEncoder;
 use frontend\models\History;
 use frontend\models\Seed;
 use frontend\models\SeedEvent;
@@ -308,5 +309,32 @@ SQL;
     {
         $res = $this->fdb->createCommand("SELECT * FROM ngpt_ngpt_users LIMIT 20;")->queryAll();
         var_dump($res);
+    }
+
+    public function actionTorrent()
+    {
+        $from = '/tmp/torrentinfo/';
+        $to = 'frontend/web/torrents/';
+        $files = scandir($from);
+        $be = new BEncoder();
+        foreach ($files as $file) {
+            if (substr($file, -4) != 'info') {
+                continue;
+            }
+            $origin = file_get_contents($from . $file);
+            $origin = 'd' . $origin . 'e';
+            $arr = $be->decode($origin)['info'];
+            if (empty($arr)) {
+                echo 'Error: ' . $from . $file;
+                return;
+            }
+            var_dump($arr);
+            $res = $be->encode($arr);
+            if (empty($res)) {
+                echo 'Error: ' . $from . $file;
+                return;
+            }
+            file_put_contents($to . $file, $res);
+        }
     }
 }
