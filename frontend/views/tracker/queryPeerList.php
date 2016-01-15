@@ -112,6 +112,6 @@ if (!empty($form->errors)) {
     $response_arr['incomplete'] = $incomplete;
 }
 $response_arr['tracker id'] = 'ngpt';
-$response_arr['interval'] = 60;
-$response_arr['min interval'] = 0;
+$response_arr['interval'] = 600;
+$response_arr['min interval'] = 120;
 respond($response_arr);
