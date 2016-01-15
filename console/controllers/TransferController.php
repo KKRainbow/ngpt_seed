@@ -321,6 +321,9 @@ SQL;
             if (substr($file, -4) != 'info') {
                 continue;
             }
+            if (file_exists($to . $file)) {
+                continue;
+            }
             $origin = file_get_contents($from . $file);
             $origin = 'd' . $origin . 'e';
             $arr = $be->decode($origin)['info'];
