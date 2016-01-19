@@ -77,8 +77,11 @@ class SeedSearchForm extends Model
     public function searchSeeds()
     {
         $keywords = explode(' ', $this->search_text);
+        array_walk($keywords, function (&$value) {
+            $value = strtolower($value);
+        });
         $qr = Seed::find()->select('seed_id')->
-        where(['like', 'full_name', $keywords])->
+        where(['like', 'lower(full_name)', $keywords])->
         andWhere("coefs_stack[1][1] BETWEEN $this->upcoe_min AND $this->upcoe_max")->
         andWhere("coefs_stack[1][2] BETWEEN $this->downcoe_min AND $this->downcoe_max")->
         andWhere("pub_time >= 'today'::date - '{$this->date_after} days'::interval");
