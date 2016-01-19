@@ -42,6 +42,9 @@ class TrackerController extends Controller
             $peer = $form->peer;
             $peer->real_up = $form->uploaded;
             $peer->real_down = $form->downloaded;
+            if ($peer->user_id == $form->seed->publisher_user_id) {
+                $peer->up_coef = 200; //做种者两倍上传
+            }
             $peer->save();
             //处理event
             switch ($form->event) {
