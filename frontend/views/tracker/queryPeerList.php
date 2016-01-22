@@ -84,7 +84,7 @@ if (!empty($form->errors)) {
             $incomplete++;
         }
         if (!$form->compact) {
-            if (empty($peer->ipv6_addr)) {
+            if (empty($peer->ipv6_addr) || empty($form->ipv6)) {
                 incompactV4Peer($peer, $peers4);
                 $hasv4 = true;
             } else {
@@ -92,7 +92,7 @@ if (!empty($form->errors)) {
                 $hasv6 = true;
             }
         } else {
-            if (empty($peer->ipv6_addr)) {
+            if (empty($peer->ipv6_addr) || empty($form->ipv6)) {
                 compactV4Peer($peer, $peers4);
                 $hasv4 = true;
             } else {
