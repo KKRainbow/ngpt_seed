@@ -42,6 +42,10 @@ SQL;
         $sql_create_table_user[] = <<<SQL
 CREATE UNIQUE INDEX idx_passkey ON {{%user}}(passkey);
 SQL;
+
+        $sql_create_table_user[] = <<<SQL
+INSERT INTO {{%user}} (discuz_user_id, passkey, priv) VALUES (1, '12345678901234567890123456789012', 'Admin');
+SQL;
         array_map($execute_sql, $sql_create_table_user);
 
 //========================================================================
